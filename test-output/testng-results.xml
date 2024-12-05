@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2024-12-04T16:00:01 IST" name="Default suite" finished-at="2024-12-04T16:01:12 IST" duration-ms="71094">
+    <groups>
+    </groups>
+    <test started-at="2024-12-04T16:00:01 IST" name="Default test" finished-at="2024-12-04T16:01:12 IST" duration-ms="71094">
+      <class name="tests.TestApp">
+        <test-method is-config="true" signature="testOnLocaldevice()[pri:0, instance:tests.TestApp@e70f13a]" started-at="2024-12-04T16:00:01 IST" name="testOnLocaldevice" finished-at="2024-12-04T16:00:01 IST" duration-ms="488" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testOnLocaldevice -->
+        <test-method signature="C1736451_CreateAccount()[pri:-1, instance:tests.TestApp@e70f13a]" started-at="2024-12-04T16:00:01 IST" name="C1736451_CreateAccount" finished-at="2024-12-04T16:01:12 IST" duration-ms="70530" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- C1736451_CreateAccount -->
+      </class> <!-- tests.TestApp -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
