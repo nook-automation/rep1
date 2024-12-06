@@ -112,7 +112,7 @@ public class TestApp extends TestBase implements ITestListener{
 	
 	
     
-	  @Test(priority = -1)
+	   @Test(priority = -1)
 	    @Description("This is a test case to verify the account creation functionality.")
 	    @Step("Creating a random account with current date and time as email and password: Test1234")
 	    public void C1736451_CreateAccount() throws Exception {
@@ -223,7 +223,7 @@ public class TestApp extends TestBase implements ITestListener{
 	    }
 
 
-@Test(priority=1)
+//@Test(priority=1)
 public void SignInAccount() throws Exception
 
 {	
@@ -324,7 +324,7 @@ public void SignInAccount() throws Exception
 	
 }
 
-@Test(priority=2)
+//@Test(priority=2)
 public void LibrarySignIn() throws Exception
 
 {	
@@ -442,7 +442,7 @@ public void LibrarySignIn() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=3)
+//@Test(priority=3)
 public void LibraryRecentTab() throws Exception
 
 {	
@@ -550,7 +550,7 @@ public void LibraryRecentTab() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=4)
+//@Test(priority=4)
 public void alltitlesCategoryFilter() throws Exception
 
 {
@@ -660,7 +660,7 @@ public void alltitlesCategoryFilter() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=5)
+//@Test(priority=5)
 public void mostRecent() throws Exception
 
 {	
@@ -761,7 +761,7 @@ public void mostRecent() throws Exception
 	}
 }
 
-@Test(priority=6)
+//@Test(priority=6)
 public void sortByTitle() throws Exception
 
 {	
@@ -861,7 +861,7 @@ public void sortByTitle() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=7)
+//@Test(priority=7)
 public void sortByAuthor() throws Exception
 
 {	
@@ -977,7 +977,7 @@ public void sortByAuthor() throws Exception
 	}
 }
 
-@Test(priority=8)
+//@Test(priority=8)
 public void allTitlesPdp() throws Exception
 
 {	
@@ -1101,7 +1101,7 @@ public void allTitlesPdp() throws Exception
 	}
 }
 
-@Test(priority=9)
+//@Test(priority=9)
 public void archiveAnItem() throws Exception
 
 {	
@@ -1220,7 +1220,7 @@ public void archiveAnItem() throws Exception
 	}
 }
 
-@Test(priority=10)
+//@Test(priority=10)
 public void unarchiveAnItem() throws Exception
 
 {
@@ -1322,7 +1322,7 @@ public void unarchiveAnItem() throws Exception
 	}
 }
 
-@Test(priority=11)
+//@Test(priority=11)
 public void permenantlyDelete() throws Exception
 
 {	
@@ -1505,7 +1505,7 @@ public void permenantlyDelete() throws Exception
 	}
 }
 
-@Test(priority=12)
+//@Test(priority=12)
 public void viewAnnotations() throws Exception
 
 {	
@@ -1627,7 +1627,7 @@ catch (Exception e) {
 }
 }
 
-@Test(priority=13)
+//@Test(priority=13)
 public void createShelf() throws Exception
 
 {
@@ -1748,7 +1748,7 @@ public void createShelf() throws Exception
 }
 
 
-@Test(priority=14)
+//@Test(priority=14)
 public void renameShelf() throws Exception
 
 {	
@@ -1862,7 +1862,7 @@ public void renameShelf() throws Exception
 }
 
 
-@Test(priority=15)
+//@Test(priority=15)
 public void manageContentInShelf() throws Exception
 
 {	
@@ -1980,7 +1980,7 @@ public void manageContentInShelf() throws Exception
 	}
 	
 }
-@Test(priority=16)
+//@Test(priority=16)
 public void deleteShelf() throws Exception
 
 {	
@@ -2091,7 +2091,7 @@ public void deleteShelf() throws Exception
 	}
 	
 }
-@Test(priority=17)
+//@Test(priority=17)
 public void markAsCompleted() throws Exception
 {
 	try
@@ -2211,7 +2211,7 @@ public void markAsCompleted() throws Exception
 	
 }
 
-@Test(priority=18)
+//@Test(priority=18)
 public void markAsNotStarted() throws Exception
 
 {
@@ -2322,7 +2322,7 @@ public void markAsNotStarted() throws Exception
 	}
 	
 }
-@Test(priority=19)
+//@Test(priority=19)
 public void unreadItemsOnlyEnable() throws Exception
 
 {
@@ -2458,7 +2458,7 @@ public void unreadItemsOnlyEnable() throws Exception
 	}
 	
 }
-@Test(priority=20)
+//@Test(priority=20)
 public void unreadItemsOnlyDisable() throws Exception
 
 {
@@ -2592,7 +2592,7 @@ public void unreadItemsOnlyDisable() throws Exception
 }
 
 
-@Test(priority=21)
+//@Test(priority=21)
 public void downloadedItemsOnlyEnable() throws Exception
 
 {
@@ -2709,7 +2709,7 @@ public void downloadedItemsOnlyEnable() throws Exception
 	}
 }
 
-@Test(priority=22)
+//@Test(priority=22)
 public void downloadedItemsOnlyDiable() throws Exception
 
 {
@@ -2826,7 +2826,7 @@ public void downloadedItemsOnlyDiable() throws Exception
 	}
 }
 
-@Test(priority=23)
+//@Test(priority=23)
 public void AnnotatedItemsOnlyEnable() throws Exception
 
 {
@@ -2946,7 +2946,7 @@ public void AnnotatedItemsOnlyEnable() throws Exception
 	}
 }
 
-@Test(priority=24)
+//@Test(priority=24)
 public void AnnotatedItemsOnlyDisable() throws Exception
 
 {
@@ -3061,7 +3061,7 @@ public void AnnotatedItemsOnlyDisable() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=25)
+//@Test(priority=25)
 public void showSamplesEnable() throws Exception
 
 {
@@ -3177,7 +3177,7 @@ public void showSamplesEnable() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=26)
+//@Test(priority=26)
 public void showSamplesDisable() throws Exception
 
 {
@@ -3294,7 +3294,7 @@ public void showSamplesDisable() throws Exception
 	}
 }
 
-@Test(priority=27)
+//@Test(priority=27)
 public void showShelvedItemsEnable() throws Exception
 
 {
@@ -3438,7 +3438,7 @@ public void showShelvedItemsEnable() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=28)
+//@Test(priority=28)
 public void showShelvedItemsDisable() throws Exception
 
 {
@@ -3553,7 +3553,7 @@ public void showShelvedItemsDisable() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=29)
+//@Test(priority=29)
 public void searchInLibraryAndBookstore() throws Exception
 
 {
@@ -3706,7 +3706,7 @@ public void searchInLibraryAndBookstore() throws Exception
 	}
 }
 
-@Test(priority=30)
+//@Test(priority=30)
 public void librarySignOut() throws Exception
 
 {
@@ -3767,7 +3767,7 @@ public void librarySignOut() throws Exception
 	}
 }
 
-@Test(priority=31)
+//@Test(priority=31)
 public void epubSignIn() throws Exception
 
 {
@@ -3884,7 +3884,7 @@ public void epubSignIn() throws Exception
 	}
 }
 
-@Test(priority=32)
+//@Test(priority=32)
 public void navigateByMargins() throws Exception
 
 {
@@ -4031,7 +4031,7 @@ public void navigateByMargins() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=33)
+//@Test(priority=33)
 public void navigateBySwiping() throws Exception
 
 {
@@ -4161,7 +4161,7 @@ public void navigateBySwiping() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=34)
+//@Test(priority=34)
 public void gotoPage() throws Exception
 
 {
@@ -4291,7 +4291,7 @@ public void gotoPage() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=35)
+//@Test(priority=35)
 public void addOrRemoveBookmarkOvrFlow() throws Exception
 
 {
@@ -4417,7 +4417,7 @@ public void addOrRemoveBookmarkOvrFlow() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=36)
+//@Test(priority=36)
 public void addOrRemoveBookmarkTapCorner() throws Exception
 
 {
@@ -4541,7 +4541,7 @@ public void addOrRemoveBookmarkTapCorner() throws Exception
 	}
 }
 
-@Test(priority=37)
+//@Test(priority=37)
 public void toc() throws Exception
 
 {
@@ -4661,7 +4661,7 @@ public void toc() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=38)
+//@Test(priority=38)
 public void launchAllAnnotations() throws Exception
 
 {
@@ -4786,7 +4786,7 @@ public void launchAllAnnotations() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=39)
+//@Test(priority=39)
 public void goToPage() throws Exception
 
 {
@@ -4917,7 +4917,7 @@ public void goToPage() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=40)
+//@Test(priority=40)
 public void findInBook() throws Exception
 
 {
@@ -5048,7 +5048,7 @@ public void findInBook() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=41)
+//@Test(priority=41)
 public void viewDetails() throws Exception
 
 {
@@ -5170,7 +5170,7 @@ public void viewDetails() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=42)
+//@Test(priority=42)
 public void readerSettings() throws Exception
 
 {
@@ -5291,7 +5291,7 @@ public void readerSettings() throws Exception
 	}
 	
 }
-@Test(priority=43)
+//@Test(priority=43)
 public void changeTextSize() throws Exception
 
 {
@@ -5413,7 +5413,7 @@ public void changeTextSize() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=44)
+//@Test(priority=44)
 public void changeTextFont() throws Exception
 
 {
@@ -5543,7 +5543,7 @@ public void changeTextFont() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=45)
+//@Test(priority=45)
 public void changeTextMargins() throws Exception
 
 {
@@ -5668,7 +5668,7 @@ public void changeTextMargins() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=46)
+//@Test(priority=46)
 public void changeTextLineSpacing() throws Exception
 
 {
@@ -5793,7 +5793,7 @@ public void changeTextLineSpacing() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=47)
+//@Test(priority=47)
 public void changeTextJustification() throws Exception
 
 {
@@ -5918,7 +5918,7 @@ public void changeTextJustification() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=48)
+//@Test(priority=48)
 public void lastReadPage() throws Exception
 
 {
@@ -6054,7 +6054,7 @@ public void lastReadPage() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=49)
+//@Test(priority=49)
 public void eob() throws Exception
 
 {
@@ -6270,7 +6270,7 @@ public void eob() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=50)
+//@Test(priority=50)
 public void openAndReadPdf() throws Exception
 
 {
@@ -6403,7 +6403,7 @@ public void openAndReadPdf() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=51)
+//@Test(priority=51)
 public void epubSignOut() throws Exception
 
 {
@@ -6461,7 +6461,7 @@ public void epubSignOut() throws Exception
 		driver.activateApp(bundleId);
 	}
 }
-@Test(priority=52)
+//@Test(priority=52)
 public void drpSignIn() throws Exception
 
 {
@@ -6573,7 +6573,7 @@ public void drpSignIn() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=53)
+//@Test(priority=53)
 public void drpNavigateBySwiping() throws Exception
 
 {
@@ -6708,7 +6708,7 @@ public void drpNavigateBySwiping() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=54)
+//@Test(priority=54)
 public void addOOrRemoveBoomark() throws Exception
 
 {
@@ -6821,7 +6821,7 @@ public void addOOrRemoveBoomark() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=55)
+//@Test(priority=55)
 public void drpArticleAndPageView() throws Exception
 
 {
@@ -6956,7 +6956,7 @@ public void drpArticleAndPageView() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=56)
+//@Test(priority=56)
 public void drpTextSettingsForArticleView() throws Exception
 
 {
@@ -7108,7 +7108,7 @@ public void drpTextSettingsForArticleView() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=57)
+//@Test(priority=57)
 public void drpToc() throws Exception
 
 {
@@ -7240,7 +7240,7 @@ public void drpToc() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=58)
+//@Test(priority=58)
 public void drpViewDetails() throws Exception
 
 {
@@ -7357,7 +7357,7 @@ public void drpViewDetails() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=59)
+//@Test(priority=59)
 public void drpLaunchSettings() throws Exception
 {
 	try
@@ -7471,7 +7471,7 @@ public void drpLaunchSettings() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=60)
+//@Test(priority=60)
 public void openDrpNewspaper() throws Exception
 
 {
@@ -7598,7 +7598,7 @@ public void openDrpNewspaper() throws Exception
 	
 }
 	
-@Test(priority=61)
+//@Test(priority=61)
 public void openDrpComic() throws Exception
 
 {
@@ -7728,7 +7728,7 @@ public void openDrpComic() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=62)
+//@Test(priority=62)
 public void epub3OpenAndRead() throws Exception
 
 {
@@ -7853,7 +7853,7 @@ public void epub3OpenAndRead() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=63)
+//@Test(priority=63)
 public void drpSignOut() throws Exception
 
 {
@@ -7911,7 +7911,7 @@ public void drpSignOut() throws Exception
 		driver.activateApp(bundleId);
 	}
 }
-@Test(priority=64)
+//@Test(priority=64)
 public void bookStoreSignIn() throws Exception
 
 {
@@ -8022,7 +8022,7 @@ public void bookStoreSignIn() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=65)
+//@Test(priority=65)
 public void downloadFreeSampleBook() throws Exception
 
 {
@@ -8170,7 +8170,7 @@ public void downloadFreeSampleBook() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=66)
+//@Test(priority=66)
 public void addBookToWishlist() throws Exception
 
 {
@@ -8307,7 +8307,7 @@ public void addBookToWishlist() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=67)
+//@Test(priority=67)
 public void currentReadFromNavigationBar() throws Exception
 
 {
@@ -8478,7 +8478,7 @@ public void currentReadFromNavigationBar() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=68)
+//@Test(priority=68)
 public void bookstoreSignOut() throws Exception
 {
 	try
@@ -8536,7 +8536,7 @@ public void bookstoreSignOut() throws Exception
 		driver.activateApp(bundleId);
 	}
 }
-@Test(priority=69)
+//@Test(priority=69)
 public void profileSignIn() throws Exception
 
 {
@@ -8653,7 +8653,7 @@ public void profileSignIn() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-@Test(priority=70)
+//@Test(priority=70)
 public void enableOrDisablePasscode() throws Exception
 
 {
@@ -8809,7 +8809,7 @@ public void enableOrDisablePasscode() throws Exception
 		}
 	}
 }
-@Test(priority=71)
+//@Test(priority=71)
 public void createNewProfile() throws Exception
 
 {
@@ -8924,7 +8924,7 @@ public void createNewProfile() throws Exception
 		}
 	}
 }
-@Test(priority=72)
+//@Test(priority=72)
 public void manageContentForProfile() throws Exception
 
 {
@@ -9037,7 +9037,7 @@ public void manageContentForProfile() throws Exception
 		}
 	}
 }
-@Test(priority=73)
+//@Test(priority=73)
 public void deleteProfile() throws Exception
 
 {
@@ -9146,7 +9146,7 @@ public void deleteProfile() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavAccounts());
 	}
 }
-@Test(priority=74)
+//@Test(priority=74)
 public void launchSettingsFromProfilePage() throws Exception
 
 {
@@ -9251,7 +9251,7 @@ public void launchSettingsFromProfilePage() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavAccounts());
 	}
 }
-@Test(priority=75)
+//@Test(priority=75)
 public void profileSignOut() throws Exception
 
 {
@@ -9316,7 +9316,7 @@ public void profileSignOut() throws Exception
 		driver.activateApp(bundleId);
 	}
 }
-@Test(priority=76)
+//@Test(priority=76)
 public void audioBooksSignIn() throws Exception
 
 {
@@ -9421,7 +9421,7 @@ public void audioBooksSignIn() throws Exception
 		waitUntilInvisible(page.getLibraryScreen().getImgcoverSyncingLibBy());
 	}
 }
-@Test(priority=77)
+//@Test(priority=77)
 public void archiveAudioBook() throws Exception
 
 {
@@ -9541,7 +9541,7 @@ public void archiveAudioBook() throws Exception
 		waitUntilInvisible(page.getLibraryScreen().getImgcoverSyncingLibBy());
 	}
 }
-@Test(priority=78)
+//@Test(priority=78)
 public void createShelfWithBooksAndAb() throws Exception
 
 {
@@ -9658,7 +9658,7 @@ public void createShelfWithBooksAndAb() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getTxtTabShelves());
 	}
 }
-@Test(priority=79)
+//@Test(priority=79)
 public void removeAbFromWishlist() throws Exception
 
 {
@@ -9804,7 +9804,7 @@ public void removeAbFromWishlist() throws Exception
 		waitUntilInvisible(page.getLibraryScreen().getImgcoverSyncingLibBy());
 	}
 }
-@Test(priority=80)
+//@Test(priority=80)
 public void audiobookTutorial() throws Exception
 
 {
@@ -9912,7 +9912,7 @@ public void audiobookTutorial() throws Exception
 		waitUntilInvisible(page.getLibraryScreen().getImgcoverSyncingLibBy());
 	}
 }
-@Test(priority=81)
+//@Test(priority=81)
 public void playPauseFullPlayer() throws Exception
 
 {
@@ -10018,7 +10018,7 @@ public void playPauseFullPlayer() throws Exception
 		waitUntilInvisible(page.getLibraryScreen().getImgcoverSyncingLibBy());
 	}
 }
-@Test(priority=82)
+//@Test(priority=82)
 public void overFlowMenuFullPlayer() throws Exception
 
 {
@@ -10132,7 +10132,7 @@ public void overFlowMenuFullPlayer() throws Exception
 		waitUntilInvisible(page.getLibraryScreen().getImgcoverSyncingLibBy());
 	}
 }
-@Test(priority=83)
+//@Test(priority=83)
 public void playPauseMiniPlayer() throws Exception
 
 {
@@ -10244,7 +10244,7 @@ public void playPauseMiniPlayer() throws Exception
 		waitUntilInvisible(page.getLibraryScreen().getImgcoverSyncingLibBy());
 	}
 }
-@Test(priority=84)
+//@Test(priority=84)
 public void singleDownloadAb() throws Exception
 
 {
@@ -10351,7 +10351,7 @@ public void singleDownloadAb() throws Exception
 		waitUntilInvisible(page.getLibraryScreen().getImgcoverSyncingLibBy());
 	}
 }
-@Test(priority=85)
+//@Test(priority=85)
 public void abSignOut() throws Exception
 
 {
@@ -10409,7 +10409,7 @@ public void abSignOut() throws Exception
 		driver.activateApp(bundleId);
 	}
 }
-@Test(priority=86)
+//@Test(priority=86)
 public void newlyAddedCasesSignIn() throws Exception
 
 {
@@ -10521,7 +10521,7 @@ public void newlyAddedCasesSignIn() throws Exception
 
 }
 
-@Test(priority=87)
+//@Test(priority=87)
 public void moveBulkToCloud() throws Exception
 
 {
@@ -10619,7 +10619,7 @@ public void moveBulkToCloud() throws Exception
 
 	}
 
-@Test(priority=88)
+//@Test(priority=88)
 public void newlyAddedCasesReSignIn() throws Exception
 
 {
@@ -10725,7 +10725,7 @@ public void newlyAddedCasesReSignIn() throws Exception
 	
 }
 
-@Test(priority=89)
+//@Test(priority=89)
 public void accountOptionsCheck() throws Exception
 
 {
@@ -10831,7 +10831,7 @@ public void accountOptionsCheck() throws Exception
 	
 }
 
-@Test(priority=90)
+//@Test(priority=90)
 public void newlyAddedCasesSignOut() throws Exception
 
 {
@@ -10914,7 +10914,7 @@ public void newlyAddedCasesSignOut() throws Exception
 
 
 //dont uncomment or include this for now
- //@Test(priority=8)
+ ////@Test(priority=8)
 public void SideLoad() throws Exception
 {
 	 
