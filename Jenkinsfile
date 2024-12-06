@@ -26,8 +26,8 @@ pipeline {
         stage('Run Automation Script') {
             steps {
                 script {
-                    // Run your automation script (replace with your main class path)
-                    mvn exec:java -Dexec.mainClass="tests.TestApp"
+                    // Run your automation script using Maven exec plugin
+                    sh 'mvn exec:java -Dexec.mainClass="tests.TestApp"'
                 }
             }
         }
@@ -51,4 +51,5 @@ pipeline {
         }
     }
 }
+
 
