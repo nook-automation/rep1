@@ -90,7 +90,7 @@ public class TestApp extends TestBase implements ITestListener{
 
 		//String propertyFileName = System.getProperty("user.dir") + "/device_Input/general.properties";
 		String propertyFileName = System.getProperty("user.dir") +File.separator+"device_Input"+File.separator+"general.properties";
-		System.out.println(propertyFileName);
+		//System.out.println(propertyFileName);
 		propertyMap = new Property().getMap(propertyFileName);
 		TEST_RUN_ID = propertyMap.get("TEST_RUN_ID");
 		TESTRAIL_USERNAME = propertyMap.get("TESTRAIL_USERNAME");

@@ -1,0 +1,1 @@
+{"uuid":"17977243-cdbf-4083-aa4a-c9945fd45ff8","name":"tests.TestApp","children":["8f89c2a9-8bbc-4bfd-98d2-11b85dbf9404"],"befores":[{"name":"testOnLocaldevice","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1733497338898,"stop":1733497377954}],"afters":[],"start":1733497338887,"stop":1733497449192}
