@@ -27,7 +27,7 @@ pipeline {
             steps {
                 script {
                     // Run your automation script (replace with your main class path)
-                    sh 'mvn exec:java -Dexec.mainClass="tests.TestApp"'
+                    mvn exec:java -Dexec.mainClass="tests.TestApp"
                 }
             }
         }
