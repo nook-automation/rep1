@@ -3,8 +3,8 @@ pipeline {
 
     environment {
         JAVA_HOME = '/Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home'
-        MAVEN_HOME = '/opt/maven'
-        PATH = "${JAVA_HOME}/bin:${MAVEN_HOME}/bin:${PATH}"  // Corrected the PATH variable
+        M2_HOME = '/Applications/apache-maven-3.8.6'  // Set Maven home directory
+        PATH = "${JAVA_HOME}/bin:${M2_HOME}/bin:${PATH}"  // Add Maven bin directory to the PATH
     }
 
     stages {
