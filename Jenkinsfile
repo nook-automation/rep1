@@ -23,6 +23,14 @@ pipeline {
             }
         }
 
+        stage('Start Appium Server') {
+            steps {
+                echo 'Starting Appium server...'
+                sh 'appium --log-level info &'
+                sleep 10 // Wait for the server to start
+            }
+        }
+
         stage('Run Automation Script') {
             steps {
                 script {
@@ -51,4 +59,5 @@ pipeline {
         }
     }
 }
+
 
