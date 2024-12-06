@@ -10,58 +10,24 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                echo 'Checking out code from Git repository...'
                 git branch: 'master', url: 'https://github.com/nook-automation/rep1.git'
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                echo 'Running Maven clean install...'
                 script {
-                    try {
-                        sh 'mvn clean install'
-                    } catch (Exception e) {
-                        echo "Maven install failed: ${e.getMessage()}"
-                        throw e
-                    }
-                }
-            }
-        }
-
-        stage('Start Appium Server') {
-            steps {
-                echo 'Starting Appium server...'
-                script {
-                    try {
-                        sh '''#!/bin/bash
-                        appium --log-level info > appium.log 2>&1 &
-                        APP_PID=$!
-                        sleep 5  # Give Appium a few seconds to start
-                        if ! ps -p $APP_PID > /dev/null; then
-                            echo "Appium did not start successfully"
-                            exit 1
-                        fi
-                        echo "Appium started successfully with PID $APP_PID"
-                        '''
-                    } catch (Exception e) {
-                        echo "Appium server start failed: ${e.getMessage()}"
-                        throw e
-                    }
+                    // Install dependencies using Maven
+                    sh 'mvn clean install'
                 }
             }
         }
 
         stage('Run Automation Script') {
             steps {
-                echo 'Running automation script...'
                 script {
-                    try {
-                        sh 'mvn exec:java -Dexec.mainClass="tests.TestApp"'
-                    } catch (Exception e) {
-                        echo "Test execution failed: ${e.getMessage()}"
-                        throw e
-                    }
+                    // Run your automation script (replace with your main class path)
+                    sh 'mvn exec:java -Dexec.mainClass="tests.TestApp"'
                 }
             }
         }
@@ -75,12 +41,6 @@ pipeline {
 
     post {
         always {
-            // Clean up the workspace and ensure the Appium server is stopped
-            script {
-                echo 'Cleaning workspace and stopping Appium server...'
-                // Stop Appium if it's still running
-                sh 'pkill -f "appium" || true'
-            }
             cleanWs()  // Clean workspace after build
         }
         success {
@@ -91,5 +51,4 @@ pipeline {
         }
     }
 }
-
 
