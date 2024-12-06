@@ -3,8 +3,13 @@ pipeline {
 
     environment {
         JAVA_HOME = '/Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home'
-        M2_HOME = '/Applications/apache-maven-3.8.6'  // Set Maven home directory
-        PATH = "${JAVA_HOME}/bin:${M2_HOME}/bin:${PATH}"  // Add Maven bin directory to the PATH
+        M2_HOME = '/Applications/apache-maven-3.8.6'
+        PATH = "${JAVA_HOME}/bin:${M2_HOME}/bin:${PATH}"
+    }
+
+    tools {
+        maven 'Maven 3.x'  // Reference globally installed Maven
+        appium 'Appium'    // Reference globally configured Appium tool
     }
 
     stages {
@@ -14,20 +19,22 @@ pipeline {
             }
         }
 
+        stage('Start Appium Server') {
+            steps {
+                script {
+                    echo 'Starting Appium server...'
+                    sh 'appium --log-level info &'
+                    sleep 10 // Wait for the Appium server to start
+                }
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
                 script {
                     // Install dependencies using Maven
                     sh 'mvn clean install'
                 }
-            }
-        }
-
-        stage('Start Appium Server') {
-            steps {
-                echo 'Starting Appium server...'
-                sh 'appium --log-level info &'
-                sleep 10 // Wait for the server to start
             }
         }
 
@@ -59,5 +66,6 @@ pipeline {
         }
     }
 }
+
 
 
