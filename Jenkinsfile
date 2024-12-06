@@ -23,18 +23,18 @@ pipeline {
             }
         }
 
-        stage('Run Automation Script') {
+        stage('Run TestNG Tests') {
             steps {
                 script {
-                    // Run your automation script using Maven exec plugin
-                    sh 'mvn exec:java -Dexec.mainClass="tests.TestApp"'
+                    // Run your TestNG tests using the Maven Surefire plugin
+                    sh 'mvn test -Dtest=tests.TestApp'
                 }
             }
         }
 
         stage('Post Results') {
             steps {
-                echo "Java automation script has finished running."
+                echo "TestNG automation script has finished running."
             }
         }
     }
@@ -51,5 +51,6 @@ pipeline {
         }
     }
 }
+
 
 
