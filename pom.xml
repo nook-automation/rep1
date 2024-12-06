@@ -183,6 +183,22 @@
             <version>3.8.1</version> <!-- Use the latest version -->
 			</plugin>
 			
+			        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>3.5.0</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>java</goal>
+                    </goals>
+                    <configuration>
+                        <mainClass>tests.TestApp</mainClass>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+			
 			 
 			
 

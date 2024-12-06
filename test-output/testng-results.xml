@@ -2,19 +2,23 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2024-12-04T16:00:01 IST" name="Default suite" finished-at="2024-12-04T16:01:12 IST" duration-ms="71094">
+  <suite started-at="2024-12-06T20:07:16 IST" name="Default suite" finished-at="2024-12-06T20:10:35 IST" duration-ms="199224">
     <groups>
     </groups>
-    <test started-at="2024-12-04T16:00:01 IST" name="Default test" finished-at="2024-12-04T16:01:12 IST" duration-ms="71094">
+    <test started-at="2024-12-06T20:07:16 IST" name="Default test" finished-at="2024-12-06T20:10:35 IST" duration-ms="199224">
       <class name="tests.TestApp">
-        <test-method is-config="true" signature="testOnLocaldevice()[pri:0, instance:tests.TestApp@e70f13a]" started-at="2024-12-04T16:00:01 IST" name="testOnLocaldevice" finished-at="2024-12-04T16:00:01 IST" duration-ms="488" status="PASS">
+        <test-method is-config="true" signature="testOnLocaldevice()[pri:0, instance:tests.TestApp@336f1079]" started-at="2024-12-06T20:07:16 IST" name="testOnLocaldevice" finished-at="2024-12-06T20:07:17 IST" duration-ms="682" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testOnLocaldevice -->
-        <test-method signature="C1736451_CreateAccount()[pri:-1, instance:tests.TestApp@e70f13a]" started-at="2024-12-04T16:00:01 IST" name="C1736451_CreateAccount" finished-at="2024-12-04T16:01:12 IST" duration-ms="70530" status="PASS">
+        <test-method signature="C1736451_CreateAccount()[pri:-1, instance:tests.TestApp@336f1079]" started-at="2024-12-06T20:07:17 IST" name="C1736451_CreateAccount" finished-at="2024-12-06T20:10:35 IST" duration-ms="198474" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- C1736451_CreateAccount -->
+        <test-method is-config="true" signature="sendTestReportEmail()[pri:0, instance:tests.TestApp@336f1079]" started-at="2024-12-06T20:10:35 IST" name="sendTestReportEmail" finished-at="2024-12-06T20:10:41 IST" duration-ms="5699" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- sendTestReportEmail -->
       </class> <!-- tests.TestApp -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
