@@ -102,14 +102,14 @@ public class TestApp extends TestBase implements ITestListener{
 	
 	
 	
-	@AfterSuite
-	public static void sendTestReportEmail()
-	{
-		System.out.println(TestListener.reportPath);
-		TestListener.sendEmailWithAttachment(TestListener.reportPath);
-
-	}
-	
+//	@AfterSuite
+//	public static void sendTestReportEmail()
+//	{
+//		System.out.println(TestListener.reportPath);
+//		TestListener.sendEmailWithAttachment(TestListener.reportPath);
+//
+//	}
+//	
 	
     
 	   @Test(priority = -1)
