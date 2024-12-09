@@ -10,24 +10,26 @@ pipeline {
     }
 
     stages {
-        stage('Monitor Folder') {
+        stage('Monitor Folder for IPA Files') {
             steps {
                 script {
                     try {
-                        // Run inotifywait command to monitor the folder for "moved_to" events
+                        // Run fswatch to monitor the folder for .ipa files
                         sh '''#!/bin/bash
                         # Timeout mechanism to limit the time spent monitoring
                         END_TIME=$(( $(date +%s) + ${TIMEOUT_SECONDS} ))
 
-                        echo "Monitoring folder: ${FOLDER_PATH}"
+                        echo "Monitoring folder: '${FOLDER_PATH}'"
                         while [ $(date +%s) -lt $END_TIME ]; do
-                            # Wait for files to be moved into the folder
-                            inotifywait -m -e moved_to --format '%w%f' "${FOLDER_PATH}" | while read NEW_FILE; do
-                                echo "New build detected: ${NEW_FILE}"
-                                # Perform any necessary action, e.g., trigger another job or notify
-                                # Example: Trigger a different Jenkins job here
-                                curl -X POST http://jenkins.example.com/job/another-job-name/build \
-                                     --user your-username:your-api-token
+                            # Monitor for .ipa files being moved to the folder
+                            fswatch -o "${FOLDER_PATH}" | while read NEW_FILE; do
+                                if [[ "$NEW_FILE" =~ \.ipa$ ]]; then
+                                    echo "New .ipa file detected: ${NEW_FILE}"
+                                    # Perform any necessary action, e.g., trigger another job or notify
+                                    # Example: Trigger a different Jenkins job here
+                                    curl -X POST http://jenkins.example.com/job/another-job-name/build \
+                                         --user your-username:your-api-token
+                                fi
                             done
                         done
                         echo "Timeout reached, stopping folder monitoring."
@@ -40,35 +42,7 @@ pipeline {
             }
         }
 
-        stage('Checkout Code') {
-            steps {
-                git branch: 'master', url: 'https://github.com/nook-automation/rep1.git'
-            }
-        }
-
-        stage('Install Dependencies') {
-            steps {
-                script {
-                    // Install dependencies using Maven
-                    sh 'mvn clean install'
-                }
-            }
-        }
-
-        stage('Run TestNG Tests') {
-            steps {
-                script {
-                    // Run your TestNG tests using the Maven Surefire plugin
-                    sh 'mvn test -Dtest=tests.TestApp'
-                }
-            }
-        }
-
-        stage('Post Results') {
-            steps {
-                echo "TestNG automation script has finished running."
-            }
-        }
+        // Other pipeline stages (Checkout Code, Install Dependencies, etc.)
     }
 
     post {
@@ -83,6 +57,7 @@ pipeline {
         }
     }
 }
+
 
 
 
