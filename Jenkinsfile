@@ -23,16 +23,14 @@ pipeline {
             }
         }
 
-stage('Build and Run Automation Script') {
+stage('Run Automation Script') {
     steps {
         script {
-            // Clean, compile, and run the script
-            sh 'mvn clean compile exec:java -Dexec.mainClass="tests.TestApp" -Dexec.classpathScope=test'
+            // Run the TestApp as part of the test suite with TestNG
+            sh 'mvn test -DsuiteXmlFile=src/test/resources/testng.xml'
         }
     }
 }
-
-
 
         stage('Post Results') {
             steps {
