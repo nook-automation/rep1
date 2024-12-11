@@ -17,20 +17,11 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 script {
-                    // Install dependencies using Maven
+                    // Install dependencies using Maven and run tests as part of `mvn clean install`
                     sh 'mvn clean install'
                 }
             }
         }
-
-stage('Run Automation Script') {
-    steps {
-        script {
-            // Run the TestApp as part of the test suite with TestNG
-            sh 'mvn test -DsuiteXmlFile=src/test/resources/testng.xml'
-        }
-    }
-}
 
         stage('Post Results') {
             steps {
@@ -51,3 +42,4 @@ stage('Run Automation Script') {
         }
     }
 }
+
