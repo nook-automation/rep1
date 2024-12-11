@@ -224,6 +224,8 @@
                     </goals>
                     <configuration>
                         <mainClass>tests.TestApp</mainClass>
+                 <!-- Use the test classpath -->
+                <classpathScope>test</classpathScope>
                     </configuration>
                 </execution>
             </executions>
