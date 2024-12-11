@@ -23,14 +23,15 @@ pipeline {
             }
         }
 
-stage('Run Automation Script') {
+stage('Build and Run Automation Script') {
     steps {
         script {
-            // Run the TestApp using exec:java with the test classpath scope
-            sh 'mvn exec:java -Dexec.mainClass="tests.TestApp" -Dexec.classpathScope=test'
+            // Clean, compile, and run the script
+            sh 'mvn clean compile exec:java -Dexec.mainClass="tests.TestApp" -Dexec.classpathScope=test'
         }
     }
 }
+
 
 
         stage('Post Results') {
