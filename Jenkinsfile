@@ -1,11 +1,6 @@
 pipeline {
     agent any
-
-    tools {
-        maven 'Maven 3.8.6'  // Use Jenkins tool for Maven
-        jdk 'JDK 11'         // Use Jenkins tool for JDK
-    }
-
+    
     environment {
         JAVA_HOME = tool name: 'JDK 11', type: 'JDK'  // Use Jenkins tool configuration for Java
         M2_HOME = tool name: 'Maven 3.8.6', type: 'Maven'  // Use Jenkins tool configuration for Maven
