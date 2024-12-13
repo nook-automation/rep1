@@ -39,14 +39,14 @@ pipeline {
         success {
             echo 'The pipeline has completed successfully.'
             // Send success email (you need to configure email server first)
-            mail to: 'your-email@example.com',
+            mail to: 'kvengattan@bn.com',
                  subject: "Build Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                  body: "Build ${env.BUILD_NUMBER} has completed successfully!\n\nJob URL: ${env.BUILD_URL}"
         }
         failure {
             echo 'The pipeline has failed.'
             // Send failure email
-            mail to: 'your-email@example.com',
+            mail to: 'kvengattan@bn.com',
                  subject: "Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                  body: "Build ${env.BUILD_NUMBER} has failed.\n\nJob URL: ${env.BUILD_URL}\n\nPlease check the build logs for more information."
         }
