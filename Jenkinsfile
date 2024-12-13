@@ -44,16 +44,16 @@ pipeline {
             
             // Send success email (configure email server in Jenkins)
             mail to: 'kvengattan@bn.com',
-                 subject: "Build Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                 body: "Build ${env.BUILD_NUMBER} has completed successfully!\n\nJob URL: ${env.BUILD_URL}"
+             subject: "Build Success",
+             body: "The build has completed successfully!"
         }
         failure {
             echo 'The pipeline has failed.'
             
             // Send failure email
             mail to: 'kvengattan@bn.com',
-                 subject: "Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                 body: "Build ${env.BUILD_NUMBER} has failed.\n\nJob URL: ${env.BUILD_URL}\n\nPlease check the build logs for more information."
+             subject: "Build Failed",
+             body: "The build has failed.\n\nPlease check the build logs for more information."
         }
     }
 }
