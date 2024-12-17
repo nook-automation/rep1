@@ -35,9 +35,9 @@ pipeline {
                 // Publish the HTML report from the test-output folder
                 publishHTML(target: [
                     reportName: 'TestNG Emailable Report',
-                    reportDir: 'test-output',
-                    reportFiles: 'emailable-report.html',
-                    keepAll: true
+                    reportDir: 'test-output',  // Location of the report
+                    reportFiles: 'emailable-report.html',  // Report filename
+                    keepAll: true  // Keep all reports
                 ])
             }
         }
@@ -53,7 +53,7 @@ pipeline {
             emailext to: 'kvengattan@bn.com',
                      subject: "Build Success",
                      body: "The build has completed successfully!\n\nPlease find the test report attached.",
-                     attachmentsPattern: 'test-output/emailable-report.html'
+                     attachmentsPattern: 'test-output/emailable-report.html'  // Attach the report
         }
         failure {
             echo 'The pipeline has failed.'
@@ -61,10 +61,11 @@ pipeline {
             emailext to: 'kvengattan@bn.com',
                      subject: "Build Failed",
                      body: "The build has failed.\n\nPlease check the build logs for more information.\n\nThe detailed test report is attached.",
-                     attachmentsPattern: 'test-output/emailable-report.html'
+                     attachmentsPattern: 'test-output/emailable-report.html'  // Attach the report
         }
     }
 }
+
 
 
 
