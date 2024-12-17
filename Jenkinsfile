@@ -43,7 +43,8 @@ pipeline {
             echo 'The pipeline has completed successfully.'
             
             // Send success email (configure email server in Jenkins)
-            mail to: 'krishnakumarv@bahwancybertek.com',
+            mail to: 'kvengattan@bn.com',
+            from: 'bjanakiraman@bn.com',
              subject: "Build Success",
              body: "The build has completed successfully!"
         }
@@ -51,7 +52,8 @@ pipeline {
             echo 'The pipeline has failed.'
             
             // Send failure email
-            mail to: 'krishnakumarv@bahwancybertek.com',
+            mail to: 'kvengattan@bn.com',
+            from: 'bjanakiraman@bn.com'.
              subject: "Build Failed",
              body: "The build has failed.\n\nPlease check the build logs for more information."
         }
