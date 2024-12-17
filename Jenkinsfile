@@ -29,13 +29,13 @@ pipeline {
             steps {
                 echo "Java automation script has finished running."
 
-                // Archive the HTML report
-                archiveArtifacts artifacts: '**/target/surefire-reports/emailable-report.html', allowEmptyArchive: true
+                // Archive the HTML report from the test-output folder
+                archiveArtifacts artifacts: 'test-output/emailable-report.html', allowEmptyArchive: true
 
-                // Publish the HTML report
+                // Publish the HTML report from the test-output folder
                 publishHTML(target: [
                     reportName: 'TestNG Emailable Report',
-                    reportDir: 'target/surefire-reports',
+                    reportDir: 'test-output',
                     reportFiles: 'emailable-report.html',
                     keepAll: true
                 ])
@@ -53,7 +53,7 @@ pipeline {
             emailext to: 'kvengattan@bn.com',
                      subject: "Build Success",
                      body: "The build has completed successfully!\n\nPlease find the test report attached.",
-                     attachmentsPattern: 'target/surefire-reports/emailable-report.html'
+                     attachmentsPattern: 'test-output/emailable-report.html'
         }
         failure {
             echo 'The pipeline has failed.'
@@ -61,10 +61,11 @@ pipeline {
             emailext to: 'kvengattan@bn.com',
                      subject: "Build Failed",
                      body: "The build has failed.\n\nPlease check the build logs for more information.\n\nThe detailed test report is attached.",
-                     attachmentsPattern: 'target/surefire-reports/emailable-report.html'
+                     attachmentsPattern: 'test-output/emailable-report.html'
         }
     }
 }
+
 
 
 
