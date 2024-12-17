@@ -53,7 +53,7 @@ pipeline {
             emailext to: 'kvengattan@bn.com',
                      subject: "Build Success",
                      body: "The build has completed successfully!\n\nPlease find the test report attached.",
-                     attachmentsPattern: '**/target/surefire-reports/emailable-report.html'
+                     attachmentsPattern: 'target/surefire-reports/emailable-report.html'
         }
         failure {
             echo 'The pipeline has failed.'
@@ -61,10 +61,11 @@ pipeline {
             emailext to: 'kvengattan@bn.com',
                      subject: "Build Failed",
                      body: "The build has failed.\n\nPlease check the build logs for more information.\n\nThe detailed test report is attached.",
-                     attachmentsPattern: '**/target/surefire-reports/emailable-report.html'
+                     attachmentsPattern: 'target/surefire-reports/emailable-report.html'
         }
     }
 }
+
 
 
 
