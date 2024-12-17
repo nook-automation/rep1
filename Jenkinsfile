@@ -45,8 +45,8 @@ pipeline {
     post {
         success {
             echo 'The pipeline has completed successfully.'
-            // Send success email with the HTML report as attachment (if it exists)
             script {
+                // Send success email with the HTML report as attachment (if it exists)
                 def reportPath = 'test-output/emailable-report.html'
                 if (fileExists(reportPath)) {
                     emailext to: 'kvengattan@bn.com',
@@ -58,10 +58,11 @@ pipeline {
                 }
             }
         }
+
         failure {
             echo 'The pipeline has failed.'
-            // Send failure email with the HTML report as attachment (if it exists)
             script {
+                // Send failure email with the HTML report as attachment (if it exists)
                 def reportPath = 'test-output/emailable-report.html'
                 if (fileExists(reportPath)) {
                     emailext to: 'kvengattan@bn.com',
@@ -73,11 +74,15 @@ pipeline {
                 }
             }
         }
+
         always {
+            // Clean workspace after sending the email
+            echo "Cleaning up the workspace..."
             cleanWs()  // Clean workspace after the build
         }
     }
 }
+
 
 
 
