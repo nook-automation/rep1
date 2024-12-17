@@ -11,6 +11,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 // Checkout code from Git repository
+                echo "Checking out code from Git repository..."
                 git branch: 'master', url: 'https://github.com/nook-automation/rep1.git'
             }
         }
@@ -28,17 +29,7 @@ pipeline {
         stage('Post Results') {
             steps {
                 echo "Java automation script has finished running."
-
-                // Archive the HTML report from the test-output folder
-                archiveArtifacts artifacts: 'test-output/emailable-report.html', allowEmptyArchive: true
-
-                // Publish the HTML report from the test-output folder
-                publishHTML(target: [
-                    reportName: 'TestNG Emailable Report',
-                    reportDir: 'test-output',  // Location of the report
-                    reportFiles: 'emailable-report.html',  // Report filename
-                    keepAll: true  // Keep all reports
-                ])
+                // No artifact archiving, just sending the report via email
             }
         }
     }
@@ -65,6 +56,7 @@ pipeline {
         }
     }
 }
+
 
 
 
