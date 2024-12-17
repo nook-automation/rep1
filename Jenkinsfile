@@ -29,7 +29,15 @@ pipeline {
         stage('Post Results') {
             steps {
                 echo "Java automation script has finished running."
-                // No artifact archiving, just sending the report via email
+                // Check if the report exists before trying to send it
+                script {
+                    def reportPath = 'test-output/emailable-report.html'
+                    if (fileExists(reportPath)) {
+                        echo "Test report exists: ${reportPath}"
+                    } else {
+                        echo "Test report not found at: ${reportPath}"
+                    }
+                }
             }
         }
     }
@@ -40,22 +48,37 @@ pipeline {
         }
         success {
             echo 'The pipeline has completed successfully.'
-            // Send success email with the HTML report as attachment
-            emailext to: 'kvengattan@bn.com',
-                     subject: "Build Success",
-                     body: "The build has completed successfully!\n\nPlease find the test report attached.",
-                     attachmentsPattern: 'test-output/emailable-report.html'  // Attach the report
+            // Send success email with the HTML report as attachment (if it exists)
+            script {
+                def reportPath = 'test-output/emailable-report.html'
+                if (fileExists(reportPath)) {
+                    emailext to: 'kvengattan@bn.com',
+                             subject: "Build Success",
+                             body: "The build has completed successfully!\n\nPlease find the test report attached.",
+                             attachmentsPattern: reportPath  // Attach the report
+                } else {
+                    echo "No report found to send via email."
+                }
+            }
         }
         failure {
             echo 'The pipeline has failed.'
-            // Send failure email with the HTML report as attachment
-            emailext to: 'kvengattan@bn.com',
-                     subject: "Build Failed",
-                     body: "The build has failed.\n\nPlease check the build logs for more information.\n\nThe detailed test report is attached.",
-                     attachmentsPattern: 'test-output/emailable-report.html'  // Attach the report
+            // Send failure email with the HTML report as attachment (if it exists)
+            script {
+                def reportPath = 'test-output/emailable-report.html'
+                if (fileExists(reportPath)) {
+                    emailext to: 'kvengattan@bn.com',
+                             subject: "Build Failed",
+                             body: "The build has failed.\n\nPlease check the build logs for more information.\n\nThe detailed test report is attached.",
+                             attachmentsPattern: reportPath  // Attach the report
+                } else {
+                    echo "No report found to send via email."
+                }
+            }
         }
     }
 }
+
 
 
 
