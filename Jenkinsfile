@@ -25,12 +25,22 @@ pipeline {
             }
         }
 
+        stage('Generate Emailable Report') {
+            steps {
+                script {
+                    // Generate the emailable report
+                    echo "Generating emailable report..."
+                    sh 'mvn surefire-report:report'
+                }
+            }
+        }
+
         stage('Post Results') {
             steps {
                 echo "Java automation script has finished running."
                 
-                // Publish TestNG results (adjust path as necessary)
-                publishTestNGResults testResults: '**/target/test-*.xml'
+                // Publish the emailable report (assuming it's generated in the surefire-reports directory)
+                archiveArtifacts artifacts: 'target/surefire-reports/emailable-report.html', allowEmptyArchive: true
             }
         }
     }
@@ -42,23 +52,29 @@ pipeline {
         success {
             echo 'The pipeline has completed successfully.'
             
-            // Send success email (configure email server in Jenkins)
-            mail to: 'kvengattan@bn.com',
-            from: 'bjanakiraman@bn.com',
-             subject: "Build Success",
-             body: "The build has completed successfully!"
+            // Send success email with the emailable report
+            emailext(
+                subject: "Build Success",
+                body: "The build has completed successfully! Please find the report attached.",
+                to: "kvengattan@bn.com",
+                attachmentsPattern: "target/surefire-reports/emailable-report.html"
+            )
         }
         failure {
             echo 'The pipeline has failed.'
             
-            // Send failure email
-            mail to: 'kvengattan@bn.com',
-            from: 'bjanakiraman@bn.com'.
-             subject: "Build Failed",
-             body: "The build has failed.\n\nPlease check the build logs for more information."
+            // Send failure email with the emailable report (if available)
+            emailext(
+                subject: "Build Failed",
+                body: "The build has failed. Please find the report attached for more details.",
+                to: "kvengattan@bn.com",
+                attachmentsPattern: "target/surefire-reports/emailable-report.html"
+            )
         }
     }
 }
+
+
 
 
 
