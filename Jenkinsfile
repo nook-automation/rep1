@@ -43,10 +43,6 @@ pipeline {
     }
 
     post {
-        always {
-            // Clean workspace after sending email
-            cleanWs()  // Clean workspace after the build
-        }
         success {
             echo 'The pipeline has completed successfully.'
             // Send success email with the HTML report as attachment (if it exists)
@@ -77,8 +73,12 @@ pipeline {
                 }
             }
         }
+        always {
+            cleanWs()  // Clean workspace after the build
+        }
     }
 }
+
 
 
 
