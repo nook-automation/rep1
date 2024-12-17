@@ -44,6 +44,7 @@ pipeline {
 
     post {
         always {
+            // Clean workspace after sending email
             cleanWs()  // Clean workspace after the build
         }
         success {
@@ -78,6 +79,7 @@ pipeline {
         }
     }
 }
+
 
 
 
