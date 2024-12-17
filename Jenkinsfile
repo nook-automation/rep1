@@ -49,20 +49,23 @@ pipeline {
         }
         success {
             echo 'The pipeline has completed successfully.'
-            // Send success email
-            mail to: 'kvengattan@bn.com',
-                 subject: "Build Success",
-                 body: "The build has completed successfully!"
+            // Send success email with the HTML report as attachment
+            emailext to: 'kvengattan@bn.com',
+                     subject: "Build Success",
+                     body: "The build has completed successfully!\n\nPlease find the test report attached.",
+                     attachmentsPattern: '**/target/surefire-reports/emailable-report.html'
         }
         failure {
             echo 'The pipeline has failed.'
-            // Send failure email
-            mail to: 'kvengattan@bn.com',
-                 subject: "Build Failed",
-                 body: "The build has failed.\n\nPlease check the build logs for more information."
+            // Send failure email with the HTML report as attachment
+            emailext to: 'kvengattan@bn.com',
+                     subject: "Build Failed",
+                     body: "The build has failed.\n\nPlease check the build logs for more information.\n\nThe detailed test report is attached.",
+                     attachmentsPattern: '**/target/surefire-reports/emailable-report.html'
         }
     }
 }
+
 
 
 
