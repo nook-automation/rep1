@@ -25,12 +25,12 @@ pipeline {
             }
         }
 
-        stage('Publish Test Results') {
+        stage('Generate Emailable Report') {
             steps {
-                echo "Publishing test results..."
+                echo "Generating Emailable Report..."
                 
-                // Publish JUnit (or TestNG) results
-                junit '**/target/test-*.xml'  // This works for both JUnit and TestNG results
+                // Run Maven surefire report plugin to generate emailable-report.html
+                sh 'mvn surefire-report:report'
             }
         }
     }
@@ -42,22 +42,22 @@ pipeline {
         success {
             echo 'The pipeline has completed successfully.'
             
-            // Send success email with attachment (TestNG report)
+            // Send success email with emailable-report.html attached
             emailext to: 'kvengattan@bn.com',
                      subject: "Build Success",
                      body: "The build has completed successfully!",
                      attachLog: true,  // Attach Jenkins log (optional)
-                     attachmentsPattern: '**/target/surefire-reports/*.xml' // Attach the TestNG report(s)
+                     attachmentsPattern: '**/target/surefire-reports/emailable-report.html' // Attach the emailable report
         }
         failure {
             echo 'The pipeline has failed.'
             
-            // Send failure email with attachment (TestNG report)
+            // Send failure email with emailable-report.html attached
             emailext to: 'kvengattan@bn.com',
                      subject: "Build Failed",
                      body: "The build has failed.\n\nPlease check the build logs for more information.",
                      attachLog: true,  // Attach Jenkins log (optional)
-                     attachmentsPattern: '**/target/surefire-reports/*.xml' // Attach the TestNG report(s)
+                     attachmentsPattern: '**/target/surefire-reports/emailable-report.html' // Attach the emailable report
             
             // Archive build logs in case of failure for easier debugging
             archiveArtifacts artifacts: '**/target/*.log', allowEmptyArchive: true
