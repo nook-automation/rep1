@@ -36,7 +36,7 @@ pipeline {
 
             // Send email with the TestNG report attached
             emailext(
-                to: 'kvengattan@bn.com',
+                mail to: 'kvengattan@bn.com',
                 subject: "Build Success - TestNG Report",
                 body: "The build has completed successfully! Please find the attached TestNG report.",
                 attachLog: true,  // Attach Jenkins console log (optional)
@@ -50,7 +50,7 @@ pipeline {
 
             // Send failure email (you can adjust content as needed)
             emailext(
-                to: 'kvengattan@bn.com',
+                mail to: 'kvengattan@bn.com',
                 subject: "Build Failed - TestNG Report",
                 body: "The build has failed. Please find the details in the attached report.",
                 attachLog: true,  // Attach Jenkins console log (optional)
