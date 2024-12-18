@@ -25,23 +25,12 @@ pipeline {
             }
         }
 
-        stage('Generate HTML Report') {
-            steps {
-                script {
-                    // Assuming your report is generated during the build
-                    echo "Generating HTML report..."
-                    // Verify the report exists after build
-                    sh 'ls -l target/reports'
-                }
-            }
-        }
-
         stage('Archive HTML Report') {
             steps {
                 script {
-                    // Archive the HTML report if it's found
-                    echo "Archiving HTML report..."
-                    archiveArtifacts artifacts: '**/target/*.html', allowEmptyArchive: true
+                    // Archive the specific HTML report
+                    echo "Archiving HTML report from target/surefire-reports/emailable-report.html"
+                    archiveArtifacts artifacts: 'target/surefire-reports/emailable-report.html', allowEmptyArchive: true
                 }
             }
         }
@@ -50,11 +39,11 @@ pipeline {
             steps {
                 echo "Publishing HTML report..."
 
-                // Publish HTML report
+                // Publish HTML report (specify the correct directory and file)
                 publishHTML(target: [
-                    reportName: 'Custom HTML Test Report',
-                    reportDir: 'target/reports',  // Make sure this path is correct
-                    reportFiles: 'custom-report.html',  // Adjust based on the actual file name
+                    reportName: 'Emailable Test Report',
+                    reportDir: 'target/surefire-reports',  // Directory relative to workspace
+                    reportFiles: 'emailable-report.html',  // Report file name relative to the directory
                     keepAll: false
                 ])
             }
@@ -75,6 +64,7 @@ pipeline {
         }
     }
 }
+
 
 
 
