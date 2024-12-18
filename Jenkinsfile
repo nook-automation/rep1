@@ -58,13 +58,9 @@ pipeline {
                 mimeType: 'text/html'  // Ensure the correct mime type for HTML
             )
         }
-
-        always {
-            echo "Cleaning up workspace..."
-            cleanWs()  // Clean workspace after the build, after email is sent
-        }
     }
 }
+
 
 
 
