@@ -35,28 +35,28 @@ pipeline {
             echo 'The pipeline has completed successfully.'
 
             // Send email with the TestNG report attached
-            emailext(
+            
                 mail to: 'kvengattan@bn.com',
                 subject: "Build Success - TestNG Report",
                 body: "The build has completed successfully! Please find the attached TestNG report.",
                 attachLog: true,  // Attach Jenkins console log (optional)
                 attachmentsPattern: '**/target/surefire-reports/*.html',  // Attach the generated report
                 mimeType: 'text/html'  // Ensure the correct mime type for HTML
-            )
+            
         }
 
         failure {
             echo 'The pipeline has failed.'
 
             // Send failure email (you can adjust content as needed)
-            emailext(
+           
                 mail to: 'kvengattan@bn.com',
                 subject: "Build Failed - TestNG Report",
                 body: "The build has failed. Please find the details in the attached report.",
                 attachLog: true,  // Attach Jenkins console log (optional)
                 attachmentsPattern: '**/target/surefire-reports/emailable-report.html',  // Attach the generated report
                 mimeType: 'text/html'  // Ensure the correct mime type for HTML
-            )
+            
         }
 
     }
