@@ -19,6 +19,7 @@ pipeline {
                 script {
                     echo "Running Maven tests..."
                     sh 'mvn clean install'
+                    sh 'mvn surefire-report:report'  // Ensure TestNG report is generated
                 }
             }
         }
@@ -60,7 +61,7 @@ pipeline {
         }
 
         always {
-            cleanWs()  // Clean workspace after the build
+            cleanWs()  // Clean workspace after the build, after email is sent
         }
     }
 }
