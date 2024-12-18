@@ -36,7 +36,7 @@ pipeline {
 
             // Send success email with emailable-report.html attachment
             script {
-                def reportFile = '**/target/surefire-reports/emailable-report.html'  // Adjusted to your file path
+                def reportFile = '/Users/Balaji\\ J/.jenkins/workspace/appium_pipeline/target/surefire-reports/emailable-report.html'
                 if (fileExists(reportFile)) {
                     emailext(
                         subject: 'Build Success',
@@ -55,7 +55,7 @@ pipeline {
 
             // Send failure email with emailable-report.html attachment
             script {
-                def reportFile = '**/target/surefire-reports/emailable-report.html'  // Adjusted to your file path
+                def reportFile = '/Users/Balaji\\ J/.jenkins/workspace/appium_pipeline/target/surefire-reports/emailable-report.html'
                 if (fileExists(reportFile)) {
                     emailext(
                         subject: 'Build Failed',
@@ -70,6 +70,7 @@ pipeline {
         }
     }
 }
+
 
 
 
