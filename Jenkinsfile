@@ -25,42 +25,38 @@ pipeline {
 
         stage('Post Results') {
             steps {
-                echo "Build complete. Sending email with report..."
+                echo "Build complete. Preparing to send email..."
             }
         }
     }
 
     post {
+        always {
+            cleanWs()  // Clean workspace after the build
+        }
+
         success {
             echo 'The pipeline has completed successfully.'
-
-            // Send email with the TestNG report attached
-            emailext(
-                to: 'kvengattan@bn.com',
-                subject: "Build Success - TestNG Report",
-                body: "The build has completed successfully! Please find the attached TestNG report.",
-                attachLog: true,  // Attach Jenkins console log (optional)
-                attachmentsPattern: '**/target/surefire-reports/*.html',  // Attach the generated report
-                mimeType: 'text/html'  // Ensure the correct mime type for HTML
-            )
+            
+            // Send success email with attachments (TestNG reports)
+            mail to: 'kvengattan@bn.com',
+                 subject: "Build Success",
+                 body: "The build has completed successfully!\n\nPlease find the attached TestNG report.",
+                 attachFiles: '**/target/surefire-reports/*.html'  // Attach HTML reports
         }
 
         failure {
             echo 'The pipeline has failed.'
-
-            // Send failure email (you can adjust content as needed)
-            emailext(
-                to: 'kvengattan@bn.com',
-                subject: "Build Failed - TestNG Report",
-                body: "The build has failed. Please find the details in the attached report.",
-                attachLog: true,  // Attach Jenkins console log (optional)
-                attachmentsPattern: '**/target/surefire-reports/emailable-report.html',  // Attach the generated report
-                mimeType: 'text/html'  // Ensure the correct mime type for HTML
-            )
+            
+            // Send failure email with attachments (TestNG report or emailable report)
+            mail to: 'kvengattan@bn.com',
+                 subject: "Build Failed",
+                 body: "The build has failed.\n\nPlease check the build logs for more information.",
+                 attachFiles: '**/target/surefire-reports/emailable-report.html'  // Attach the emailable report
         }
-
     }
 }
+
 
 
 
