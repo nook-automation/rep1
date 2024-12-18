@@ -1,5 +1,12 @@
 pipeline {
     agent any
+
+    environment {
+        JAVA_HOME = '/Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home'
+        M2_HOME = '/Applications/apache-maven-3.8.6'
+        PATH = "${JAVA_HOME}/bin:${M2_HOME}/bin:${PATH}"
+    }
+
     stages {
         stage('Checkout Code') {
             steps {
@@ -26,41 +33,32 @@ pipeline {
     post {
         success {
             echo 'The pipeline has completed successfully.'
-            
-            script {
-                emailext (
-                    subject: "Build Success - TestNG Report",
-                    body: "The build has completed successfully! Please find the attached TestNG report.",
-                    to: "kvengattan@bn.com",
-                    smtpHost: "smtp-mail.outlook.com",  // Replace with your SMTP host
-                    mimeType: "text/html",
-                    from: "bjanakiraman@bn.com",  // Replace with your sender email
-                    authUser: "bjanakiraman@bn.com",  // Replace with your SMTP user
-                    authPassword: "Autumn@Nov2024!",  // Replace with your SMTP password
-                    attachmentsPattern: '**/target/surefire-reports/*.html',  // Attach the generated report
-                    attachLog: true  // Attach Jenkins console log (optional)
-                )
-            }
+
+            // Send email with the TestNG report attached
+            emailext(
+                to: 'kvengattan@bn.com',
+                subject: "Build Success - TestNG Report",
+                body: "The build has completed successfully! Please find the attached TestNG report.",
+                attachLog: true,  // Attach Jenkins console log (optional)
+                attachmentsPattern: '**/target/surefire-reports/*.html',  // Attach the generated report
+                mimeType: 'text/html'  // Ensure the correct mime type for HTML
+            )
         }
 
         failure {
             echo 'The pipeline has failed.'
 
-            script {
-                emailext (
-                    subject: "Build Failed - TestNG Report",
-                    body: "The build has failed. Please find the details in the attached report.",
-                    to: "kvengattan@bn.com",
-                    smtpHost: "smtp-mail.outlook.com",  // Replace with your SMTP host
-                    mimeType: "text/html",
-                    from: "bjanakiraman@bn.com",  // Replace with your sender email
-                    authUser: "bjanakiraman@bn.com",  // Replace with your SMTP user
-                    authPassword: "Autumn@Nov2024!",  // Replace with your SMTP password
-                    attachmentsPattern: '**/target/surefire-reports/emailable-report.html',  // Attach the generated report
-                    attachLog: true  // Attach Jenkins console log (optional)
-                )
-            }
+            // Send failure email (you can adjust content as needed)
+            emailext(
+                to: 'kvengattan@bn.com',
+                subject: "Build Failed - TestNG Report",
+                body: "The build has failed. Please find the details in the attached report.",
+                attachLog: true,  // Attach Jenkins console log (optional)
+                attachmentsPattern: '**/target/surefire-reports/emailable-report.html',  // Attach the generated report
+                mimeType: 'text/html'  // Ensure the correct mime type for HTML
+            )
         }
+
     }
 }
 
