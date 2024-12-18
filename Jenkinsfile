@@ -36,16 +36,16 @@ pipeline {
 
             // Define the relative path using the Jenkins workspace environment variable
             script {
-                def reportFile = "${env.WORKSPACE}/target/surefire-reports/emailable-report.html"
-                if (fileExists(reportFile)) {
+                def reportFilePattern = '**/target/surefire-reports/emailable-report.html'
+                if (fileExists("${env.WORKSPACE}/target/surefire-reports/emailable-report.html")) {
                     emailext(
                         subject: 'Build Success',
                         body: 'The build has completed successfully! Please find the attached emailable report.',
-                        attachmentsPattern: reportFile,
+                        attachmentsPattern: reportFilePattern, // GLOB pattern
                         to: 'kvengattan@bn.com'
                     )
                 } else {
-                    echo "Emailable report not found at ${reportFile}"
+                    echo "Emailable report not found at ${env.WORKSPACE}/target/surefire-reports/emailable-report.html"
                 }
             }
         }
@@ -55,21 +55,22 @@ pipeline {
 
             // Define the relative path using the Jenkins workspace environment variable
             script {
-                def reportFile = "${env.WORKSPACE}/target/surefire-reports/emailable-report.html"
-                if (fileExists(reportFile)) {
+                def reportFilePattern = '**/target/surefire-reports/emailable-report.html'
+                if (fileExists("${env.WORKSPACE}/target/surefire-reports/emailable-report.html")) {
                     emailext(
                         subject: 'Build Failed',
                         body: 'The build has failed. Please check the attached emailable report.',
-                        attachmentsPattern: reportFile,
+                        attachmentsPattern: reportFilePattern, // GLOB pattern
                         to: 'kvengattan@bn.com'
                     )
                 } else {
-                    echo "Emailable report not found at ${reportFile}"
+                    echo "Emailable report not found at ${env.WORKSPACE}/target/surefire-reports/emailable-report.html"
                 }
             }
         }
     }
 }
+
 
 
 
