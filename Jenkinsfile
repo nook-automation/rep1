@@ -17,11 +17,12 @@ pipeline {
         stage('Install Dependencies and Run Tests') {
             steps {
                 script {
-                    def workspace = "/Users/Balaji J/.jenkins/workspace/appium_pipeline@2"
-                    // Use this workspace path for any file operations
-                    echo "Using workspace: ${workspace}"
-                    echo "Running Maven tests..."
-                    sh 'mvn clean install'
+                    // Change directory to the correct workspace if needed
+                    echo "Changing directory to: /Users/Balaji J/.jenkins/workspace/appium_pipeline@2"
+                    dir("/Users/Balaji J/.jenkins/workspace/appium_pipeline@2") {
+                        echo "Running Maven tests..."
+                        sh 'mvn clean install'
+                    }
                 }
             }
         }
