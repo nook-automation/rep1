@@ -20,17 +20,17 @@ pipeline {
                 script {
                     // Install dependencies using Maven and run tests as part of `mvn clean install`
                     echo "Installing dependencies and running tests with Maven..."
-                    sh 'mvn clean install'
+                    sh script: 'mvn clean install', returnStatus: true
                 }
             }
         }
 
-        stage('Post Results') {
+        stage('Publish Test Results') {
             steps {
-                echo "Java automation script has finished running."
+                echo "Publishing test results..."
                 
-                // Publish TestNG results (adjust path as necessary)
-                publishTestNGResults testResults: '**/target/test-*.xml'
+                // Publish JUnit (or TestNG) results
+                junit '**/target/test-*.xml'  // This works for both JUnit and TestNG results
             }
         }
     }
@@ -42,21 +42,29 @@ pipeline {
         success {
             echo 'The pipeline has completed successfully.'
             
-            // Send success email (configure email server in Jenkins)
-            mail to: 'kvengattan@bn.com',
-             subject: "Build Success",
-             body: "The build has completed successfully!"
+            // Send success email with attachment (TestNG report)
+            emailext to: 'kvengattan@bn.com',
+                     subject: "Build Success",
+                     body: "The build has completed successfully!",
+                     attachLog: true,  // Attach Jenkins log (optional)
+                     attachmentsPattern: '**/target/surefire-reports/*.xml' // Attach the TestNG report(s)
         }
         failure {
             echo 'The pipeline has failed.'
             
-            // Send failure email
-            mail to: 'kvengattan@bn.com',
-             subject: "Build Failed",
-             body: "The build has failed.\n\nPlease check the build logs for more information."
+            // Send failure email with attachment (TestNG report)
+            emailext to: 'kvengattan@bn.com',
+                     subject: "Build Failed",
+                     body: "The build has failed.\n\nPlease check the build logs for more information.",
+                     attachLog: true,  // Attach Jenkins log (optional)
+                     attachmentsPattern: '**/target/surefire-reports/*.xml' // Attach the TestNG report(s)
+            
+            // Archive build logs in case of failure for easier debugging
+            archiveArtifacts artifacts: '**/target/*.log', allowEmptyArchive: true
         }
     }
 }
+
 
 
 
