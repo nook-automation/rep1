@@ -59,10 +59,6 @@ pipeline {
             )
         }
 
-        always {
-            echo "Cleaning up workspace..."
-            cleanWs()  // Clean workspace after the build, after email is sent
-        }
     }
 }
 
