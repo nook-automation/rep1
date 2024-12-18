@@ -19,7 +19,6 @@ pipeline {
                 script {
                     echo "Running Maven tests..."
                     sh 'mvn clean install'
-                    sh 'mvn surefire-report:report'  // Ensure TestNG report is generated
                 }
             }
         }
