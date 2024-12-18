@@ -7,7 +7,7 @@ pipeline {
         PATH = "${JAVA_HOME}/bin:${M2_HOME}/bin:${PATH}"
         TESTRAIL_API_URL = 'https://nook.testrail.com/index.php?/api/v2/get_run/'  // TestRail API URL
         TESTRAIL_API_USER = 'Kvengattan@bn.com'  // Your TestRail username
-        TESTRAIL_API_KEY = 'G76ePR6uxA4xETkqmZu.-i1TIFkK/1sUinlnsd4OZ'  // Your TestRail API key
+        TESTRAIL_API_KEY = 'fFwQL4eci/rdMAMs1I9O-O2wpsGW7MlJiksWDj57L'  // Your TestRail API key
         TEST_RUN_ID = '91648'  // ID of the test run you want to retrieve
     }
 
