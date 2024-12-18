@@ -28,10 +28,10 @@ pipeline {
         stage('Generate HTML Report') {
             steps {
                 script {
-                    // Assume you have a custom HTML report generated at target/reports
+                    // Assuming your report is generated during the build
                     echo "Generating HTML report..."
-                    // Example command to generate HTML (if required, adjust based on your tool)
-                    // sh 'mvn generate-report'  // if your tool generates an HTML report as part of build
+                    // Verify the report exists after build
+                    sh 'ls -l target/reports'
                 }
             }
         }
@@ -39,22 +39,22 @@ pipeline {
         stage('Archive HTML Report') {
             steps {
                 script {
-                    // Archive the HTML report to make it available as a build artifact
+                    // Archive the HTML report if it's found
                     echo "Archiving HTML report..."
                     archiveArtifacts artifacts: '**/target/*.html', allowEmptyArchive: true
                 }
             }
         }
 
-        stage('Post Results') {
+        stage('Publish HTML Report') {
             steps {
                 echo "Publishing HTML report..."
 
-                // Publish HTML report (you can adjust the path if necessary)
+                // Publish HTML report
                 publishHTML(target: [
                     reportName: 'Custom HTML Test Report',
-                    reportDir: 'target/reports',  // Path to your HTML reports
-                    reportFiles: 'custom-report.html',  // Name of the HTML file
+                    reportDir: 'target/reports',  // Make sure this path is correct
+                    reportFiles: 'custom-report.html',  // Adjust based on the actual file name
                     keepAll: false
                 ])
             }
@@ -67,22 +67,15 @@ pipeline {
         }
         success {
             echo 'The pipeline has completed successfully.'
-            
-            // Send success email
-            mail to: 'kvengattan@bn.com',
-                 subject: "Build Success",
-                 body: "The build has completed successfully!"
+            mail to: 'kvengattan@bn.com', subject: "Build Success", body: "The build has completed successfully!"
         }
         failure {
             echo 'The pipeline has failed.'
-            
-            // Send failure email
-            mail to: 'kvengattan@bn.com',
-                 subject: "Build Failed",
-                 body: "The build has failed.\n\nPlease check the build logs for more information."
+            mail to: 'kvengattan@bn.com', subject: "Build Failed", body: "The build has failed.\n\nPlease check the build logs for more information."
         }
     }
 }
+
 
 
 
