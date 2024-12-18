@@ -34,9 +34,9 @@ pipeline {
         success {
             echo 'The pipeline has completed successfully.'
 
-            // Send success email with emailable-report.html attachment
+            // Define the relative path using the Jenkins workspace environment variable
             script {
-                def reportFile = '/Users/Balaji\\ J/.jenkins/workspace/appium_pipeline/target/surefire-reports/emailable-report.html'
+                def reportFile = "${env.WORKSPACE}/target/surefire-reports/emailable-report.html"
                 if (fileExists(reportFile)) {
                     emailext(
                         subject: 'Build Success',
@@ -53,9 +53,9 @@ pipeline {
         failure {
             echo 'The pipeline has failed.'
 
-            // Send failure email with emailable-report.html attachment
+            // Define the relative path using the Jenkins workspace environment variable
             script {
-                def reportFile = '/Users/Balaji\\ J/.jenkins/workspace/appium_pipeline/target/surefire-reports/emailable-report.html'
+                def reportFile = "${env.WORKSPACE}/target/surefire-reports/emailable-report.html"
                 if (fileExists(reportFile)) {
                     emailext(
                         subject: 'Build Failed',
@@ -70,6 +70,7 @@ pipeline {
         }
     }
 }
+
 
 
 
