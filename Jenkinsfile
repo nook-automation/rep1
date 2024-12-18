@@ -31,31 +31,46 @@ pipeline {
     }
 
     post {
-        always {
-            cleanWs()  // Clean workspace after the build
-        }
-
         success {
             echo 'The pipeline has completed successfully.'
-            
-            // Send success email with attachments (TestNG reports)
-            mail to: 'kvengattan@bn.com',
-                 subject: "Build Success",
-                 body: "The build has completed successfully!\n\nPlease find the attached TestNG report.",
-                 attachFiles: '**/target/surefire-reports/*.html'  // Attach HTML reports
+
+            // Send success email with emailable-report.html attachment
+            script {
+                def reportFile = '**/target/surefire-reports/emailable-report.html'  // Adjusted to your file path
+                if (fileExists(reportFile)) {
+                    emailext(
+                        subject: 'Build Success',
+                        body: 'The build has completed successfully! Please find the attached emailable report.',
+                        attachmentsPattern: reportFile,
+                        to: 'kvengattan@bn.com'
+                    )
+                } else {
+                    echo "Emailable report not found at ${reportFile}"
+                }
+            }
         }
 
         failure {
             echo 'The pipeline has failed.'
-            
-            // Send failure email with attachments (TestNG report or emailable report)
-            mail to: 'kvengattan@bn.com',
-                 subject: "Build Failed",
-                 body: "The build has failed.\n\nPlease check the build logs for more information.",
-                 attachFiles: '**/target/surefire-reports/emailable-report.html'  // Attach the emailable report
+
+            // Send failure email with emailable-report.html attachment
+            script {
+                def reportFile = '**/target/surefire-reports/emailable-report.html'  // Adjusted to your file path
+                if (fileExists(reportFile)) {
+                    emailext(
+                        subject: 'Build Failed',
+                        body: 'The build has failed. Please check the attached emailable report.',
+                        attachmentsPattern: reportFile,
+                        to: 'kvengattan@bn.com'
+                    )
+                } else {
+                    echo "Emailable report not found at ${reportFile}"
+                }
+            }
         }
     }
 }
+
 
 
 
