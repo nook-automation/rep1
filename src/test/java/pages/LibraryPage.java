@@ -219,7 +219,7 @@ private By imgXDownload=MobileBy.xpath("//XCUIElementTypeApplication[@name=\"B&N
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name=\"Save\"]")
 	private MobileElement btnSaveShelf;
 	
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@value='December']")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@value='Dec']")
 	private MobileElement txtShelfDecember;
 	
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@value='Nook']")
