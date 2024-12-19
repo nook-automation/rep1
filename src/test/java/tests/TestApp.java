@@ -69,7 +69,9 @@ import io.qameta.allure.Step;
 
 
 public class TestApp extends TestBase implements ITestListener{ 
-	public static String bundleId ="com.barnesandnoble.B-N-eReader";
+	public static String bundleId ="com.bnenterprise.B-N-eReader";
+	//bundle id of appstore build
+	//com.barnesandnoble.B-N-eReader
 	String name1="";
 
 	String name=date();
