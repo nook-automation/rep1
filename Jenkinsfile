@@ -7,17 +7,6 @@ pipeline {
         PATH = "${JAVA_HOME}/bin:${M2_HOME}/bin:${PATH}"
         TESTRAIL_URL = 'https://nook.testrail.com'
         TEST_RUN_ID = '91648'  // The test run ID for which you want the results
-        statusCounts = [
-            "Passed": 0,
-            "Blocked": 0,
-            "Untested": 0,
-            "Retest": 0,
-            "Failed": 0,
-            "Crash": 0,
-            "Server Error": 0,
-            "Not Support": 0,
-            "Not Applicable": 0
-        ]
     }
 
     stages {
@@ -54,6 +43,19 @@ pipeline {
 
                     // Parse the JSON response
                     def jsonResponse = readJSON text: response.content
+
+                    // Initialize counters for each status type
+                    def statusCounts = [
+                        "Passed": 0,
+                        "Blocked": 0,
+                        "Untested": 0,
+                        "Retest": 0,
+                        "Failed": 0,
+                        "Crash": 0,
+                        "Server Error": 0,
+                        "Not Support": 0,
+                        "Not Applicable": 0
+                    ]
 
                     // Iterate over the results and count the statuses
                     jsonResponse.results.each { result ->
@@ -165,7 +167,6 @@ pipeline {
         }
     }
 }
-
 
 
 
