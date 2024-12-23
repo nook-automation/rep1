@@ -44,11 +44,17 @@ pipeline {
                         validResponseCodes: '200'
                     )
                     
+                    // Check the response content
+                    echo "API Response: ${response.content}"
+
                     // Parse the JSON response from TestRail
                     def jsonResponse = readJSON text: response.content
                     
                     // Save the JSON to a file (optional)
                     writeFile file: 'testrail-report.json', text: groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(jsonResponse))
+                    
+                    // Debug: List the contents of the current directory
+                    sh 'ls -la'
                 }
             }
         }
@@ -100,6 +106,7 @@ pipeline {
         }
     }
 }
+
 
 
 
