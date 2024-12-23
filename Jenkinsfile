@@ -5,11 +5,11 @@ pipeline {
         JAVA_HOME = '/Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home'
         M2_HOME = '/Applications/apache-maven-3.8.6'
         PATH = "${JAVA_HOME}/bin:${M2_HOME}/bin:${PATH}"
+        
         TESTRAIL_URL = 'https://nook.testrail.com'
         TESTRAIL_USER = 'Kvengattan@bn.com'
         TESTRAIL_API_KEY = 'MXe4W9iAFAC5XsNq48Qe-maUHMcexc7.6XCejNgAK'
-        TEST_RUN_ID = '91648'  // The test run ID for which you want the report
-        REPORT_FILE_PATH = 'testrail-report.pdf'  // Or HTML, depending on the format
+        TEST_RUN_ID = '91648'  // Test Run ID from your link
     }
 
     stages {
@@ -31,23 +31,24 @@ pipeline {
         stage('Fetch TestRail Report') {
             steps {
                 script {
-                    // Use the TestRail API to fetch the test run results
                     echo "Fetching TestRail Report..."
+
+                    // Construct the API URL to fetch test results from TestRail
                     def apiUrl = "${env.TESTRAIL_URL}/index.php?/api/v2/get_results_for_run/${env.TEST_RUN_ID}"
+                    
+                    // Make the API request to TestRail (using authentication)
                     def response = httpRequest(
                         acceptType: 'APPLICATION_JSON',
-                        authentication: 'testrail-api-auth',  // Define this in Jenkins credentials
+                        authentication: 'testrail-api-auth',  // Jenkins credentials ID for TestRail
                         url: apiUrl,
                         validResponseCodes: '200'
                     )
+                    
                     // Parse the JSON response from TestRail
                     def jsonResponse = readJSON text: response.content
-
-                    // Assuming the response contains the URL to download the report
-                    def reportUrl = jsonResponse['results'][0]['url'] // Adjust based on your API response structure
-
-                    // Use curl or wget to download the report (assuming PDF format)
-                    sh "curl -o ${env.WORKSPACE}/${env.REPORT_FILE_PATH} ${reportUrl}"
+                    
+                    // Save the JSON to a file (optional)
+                    writeFile file: 'testrail-report.json', text: groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(jsonResponse))
                 }
             }
         }
@@ -63,13 +64,13 @@ pipeline {
         success {
             echo 'The pipeline has completed successfully.'
 
-            // Send email with TestRail report
+            // Send email with raw TestRail results as attachment
             script {
-                def reportFile = "${env.WORKSPACE}/${env.REPORT_FILE_PATH}"
+                def reportFile = 'testrail-report.json'
                 if (fileExists(reportFile)) {
                     emailext(
                         subject: 'TestRail Report - Build Success',
-                        body: 'The build has completed successfully! Please find the attached TestRail report.',
+                        body: 'The build has completed successfully! Please find the attached TestRail JSON results.',
                         attachmentsPattern: reportFile,
                         to: 'kvengattan@bn.com'
                     )
@@ -82,13 +83,13 @@ pipeline {
         failure {
             echo 'The pipeline has failed.'
 
-            // Send email with TestRail report on failure
+            // Send email with raw TestRail results on failure
             script {
-                def reportFile = "${env.WORKSPACE}/${env.REPORT_FILE_PATH}"
+                def reportFile = 'testrail-report.json'
                 if (fileExists(reportFile)) {
                     emailext(
                         subject: 'TestRail Report - Build Failed',
-                        body: 'The build has failed. Please check the attached TestRail report.',
+                        body: 'The build has failed. Please check the attached TestRail JSON results.',
                         attachmentsPattern: reportFile,
                         to: 'kvengattan@bn.com'
                     )
