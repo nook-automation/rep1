@@ -113,7 +113,7 @@ public class TestApp extends TestBase implements ITestListener{
 //	}
 //	
     
-	    //@Test(priority = 0)
+	    @Test(priority = 0)
 	    @Description("This is a test case to verify the account creation functionality.")
 	    @Step("Creating a random account with current date and time as email and password: Test1234")
 	    public void C1736451_CreateAccount() throws Exception {
