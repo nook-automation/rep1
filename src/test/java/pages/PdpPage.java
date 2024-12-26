@@ -65,7 +65,7 @@ public class PdpPage extends TestBase{
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name=\"FREE\"]")
 	private MobileElement btnFree;
 	
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name=\"Confirm\"]")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name=\"CONFIRM\"]")
 	private MobileElement btnConfirm;
 	
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name=\"FREE SAMPLE\"]")
