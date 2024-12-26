@@ -75,7 +75,7 @@ public class TestApp extends TestBase implements ITestListener{
 	String name1="";
 
 	String name=date();
-	SoftAssert softAssert = new SoftAssert();
+
 	TestRailUploaderListener obj=new TestRailUploaderListener();
 
 	
@@ -86,7 +86,7 @@ public class TestApp extends TestBase implements ITestListener{
 
 	
 
-	@BeforeClass
+	@BeforeClass    
 	public void testOnLocaldevice() throws Exception {
 
 
@@ -112,19 +112,14 @@ public class TestApp extends TestBase implements ITestListener{
 //
 //	}
 //	
-	
-//	@AfterClass
-//	public void assertion()
-//	{
-//		softAssert.assertAll();
-//	}
-	
     
-	    @Test(priority = -1)
+	    @Test(priority = 0)
 	    @Description("This is a test case to verify the account creation functionality.")
 	    @Step("Creating a random account with current date and time as email and password: Test1234")
 	    public void C1736451_CreateAccount() throws Exception {
+	    	SoftAssert softAssert = new SoftAssert();
 	        try {
+	        	
 	            waitUntilVisible(page.getSignINScreen().getBtnCreateAccount());
 	            touchAtCenterOfElement(page.getSignINScreen().getBtnCreateAccount());
 	            
@@ -174,12 +169,14 @@ public class TestApp extends TestBase implements ITestListener{
 	            touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	            
 	            waitUntilVisible(page.getLibraryScreen().getTxtTitleLibrary());
-
-	            if (isElementDisplayed(page.getLibraryScreen().getTxtTitleLibrary())) {
+	        	
+	           boolean  isAssertionPassed = isElementDisplayed(page.getLibraryScreen().getTxtTitleLibrary());
+	            if (isAssertionPassed) {
 	                System.out.println("Create new BN account");
 	                System.out.println("Test Passed - C1736451");
 	                TestBase.addResultForTestCase("1736451", 1, "");
 	                softAssert.assertTrue(true);
+	                
 	            } else {
 	                System.out.println("Create new BN account");
 	                System.out.println("Test Failed - C1736451");
@@ -202,6 +199,9 @@ public class TestApp extends TestBase implements ITestListener{
 	            touchAtCenterOfElement(page.getAccountScreen().getBtnOKSignout());
 
 	            waitUntilVisible(page.getSignINScreen().getBtnSignIn());
+	            
+	           
+	            
 	        } 
 	            catch (Exception e) {
 	          	e.printStackTrace();
@@ -243,39 +243,17 @@ public class TestApp extends TestBase implements ITestListener{
 	    		waitUntilVisible(page.getIosSettingsScreen().getBtnBackIosSettings());
 	    		touchAtCenterOfElement(page.getIosSettingsScreen().getBtnBackIosSettings());
 	    		driver.activateApp(bundleId);
+	    		
 
 	        }
+	       softAssert.assertAll();
 	    }
 
-	    // Handle exception and attach details for debugging
-	    private void handleException(Exception e) {
-	        System.out.println("Test Case Rerun Started");
-
-	        // Attach exception stack trace to Allure for easier debugging
-	        attachLog("Exception occurred: " + e.getMessage());
-	        e.printStackTrace();
-
-	        // Additional actions can be added here to capture logs, screenshots, etc.
-	    }
-
-	    // Example method to attach logs
-	    @Attachment(value = "Test Logs", type = "text/plain")
-	    public String attachLog(String log) {
-	        return log;
-	    }
-
-	    // Example method for taking screenshots
-	    @Attachment(value = "Screenshot", type = "image/png")
-	    public byte[] takeScreenshot() {
-	        // Capture the screenshot using WebDriver
-	        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-	    }
-
-
-//@Test(priority=1)
-public void SignInAccount() throws Exception
+ @Test(priority=1)
+public void C1697654_SignInAccount() throws Exception
 
 {	
+	SoftAssert softAssert1 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getSignINScreen().getBtnSignIn());
@@ -305,21 +283,20 @@ public void SignInAccount() throws Exception
 	waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 	touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	waitUntilVisible(page.getLibraryScreen().getTxtTitleLibrary());
-	if(isElementDisplayed(page.getLibraryScreen().getTxtTitleLibrary()))
+	boolean  isTitleDisplayed = isElementDisplayed(page.getLibraryScreen().getTxtTitleLibrary());
+	if(isTitleDisplayed)
 	{
 		System.out.println("Sign in existing BN account");
 		System.out.println("Test Passed - C1697654");
 		TestBase.addResultForTestCase("1697654", 1, "");
-        softAssert.assertTrue(true);
-
-
+        softAssert1.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("Sign in existing BN account");
 		System.out.println("Test Failed - C1697654");
 		TestBase.addResultForTestCase("1697654", 5, "");
-    	softAssert.assertTrue(false, "Assertion failed: Condition is false.");
+    	softAssert1.assertTrue(false, "Assertion failed: Condition is false.");
 	}
 	waitUntilVisible(page.getLibraryScreen().getBtnBottomNavAccounts());
 	touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavAccounts());
@@ -373,19 +350,22 @@ public void SignInAccount() throws Exception
 		waitUntilVisible(page.getIosSettingsScreen().getBtnBackIosSettings());
 		touchAtCenterOfElement(page.getIosSettingsScreen().getBtnBackIosSettings());
 		driver.activateApp(bundleId);
+		softAssert1.assertAll();
         // Explicitly fail the test
        //Assert.fail("Test failed due to exception: " + e.getMessage());
 
 	}
+	softAssert1.assertAll();
 	
 }
 
 
 
-//@Test(priority=2)
+// @Test(priority=2)
 public void LibrarySignIn() throws Exception
 
 {	
+	
 	try
 	{
 	waitUntilVisible(page.getSignINScreen().getBtnSignIn());
@@ -499,11 +479,13 @@ public void LibrarySignIn() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+	
 }
-//@Test(priority=3)
-public void LibraryRecentTab() throws Exception
+// @Test(priority=3)
+public void C1736535_LibraryRecentTab() throws Exception
 
 {	
+	SoftAssert softAssert2 = new SoftAssert();
 	try
 	{
 	touchAtCenterOfElement(page.getLibraryScreen().getTxtTabRecents());
@@ -521,6 +503,7 @@ public void LibraryRecentTab() throws Exception
 		System.out.println("Library - Recent Tab");
 		System.out.println("Test Passed - C1736535");
 		TestBase.addResultForTestCase("1736535", 1, "");
+		 softAssert2.assertTrue(true);
 
 	}
 	else
@@ -528,6 +511,7 @@ public void LibraryRecentTab() throws Exception
 		System.out.println("Library - Recent Tab");
 		System.out.println("Test Failed - C1736535");
 		TestBase.addResultForTestCase("1736535", 5, "");
+		 softAssert2.assertTrue(false);
 	}
 	waitUntilVisible(page.getLibraryScreen().getTxtTabAllTitles());
 	touchAtCenterOfElement(page.getLibraryScreen().getTxtTabAllTitles());
@@ -607,11 +591,14 @@ public void LibraryRecentTab() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert2.assertAll();
+
 }
-//@Test(priority=4)
-public void alltitlesCategoryFilter() throws Exception
+// @Test(priority=4)
+public void C1697664_alltitlesCategoryFilter() throws Exception
 
 {
+	SoftAssert softAssert3 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getTxtFilterMediaTypes());
@@ -629,6 +616,7 @@ public void alltitlesCategoryFilter() throws Exception
 		System.out.println("Library: All Titles tab - Category filter function");
 		System.out.println("Test Passed - C1697664");
 		TestBase.addResultForTestCase("1697664", 1, "");
+		softAssert3.assertTrue(true);
 
 	}
 	else
@@ -637,6 +625,7 @@ public void alltitlesCategoryFilter() throws Exception
 		System.out.println("Library: All Titles tab - Category filter function");
 		System.out.println("Test Failed - C1697664");
 		TestBase.addResultForTestCase("1697664", 5, "");
+		softAssert3.assertTrue(false);
 
 	}
 	waitUntilVisible(page.getLibraryScreen().getTxtFilterByAllTypes());
@@ -717,11 +706,14 @@ public void alltitlesCategoryFilter() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert3.assertAll();
+
 }
-//@Test(priority=5)
-public void mostRecent() throws Exception
+// @Test(priority=5)
+public void C1697665_mostRecent() throws Exception
 
 {	
+	SoftAssert softAssert4 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getTxtFilterSortType());
@@ -734,12 +726,14 @@ public void mostRecent() throws Exception
 		System.out.println("Library: All Titles tab - Sort by Most Recent");
 		System.out.println("Test Passed - C1697665");
 		TestBase.addResultForTestCase("1697665", 1, "");
+		softAssert4.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("Library: All Titles tab - Sort by Most Recent");
 		System.out.println("Test Failed - C1697665");
 		TestBase.addResultForTestCase("1697665", 5, "");
+		softAssert4.assertTrue(false);
 	}
 	}
 	catch (Exception e) {
@@ -817,12 +811,15 @@ public void mostRecent() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert4.assertAll();
+
 }
 
-//@Test(priority=6)
-public void sortByTitle() throws Exception
+// @Test(priority=6)
+public void C1730448_sortByTitle() throws Exception
 
 {	
+	SoftAssert softAssert5 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getTxtFilterSortType());
@@ -835,12 +832,15 @@ public void sortByTitle() throws Exception
 		System.out.println("Library: All Titles tab - Sort by Title");
 		System.out.println("Test Passed - C1730448");
 		TestBase.addResultForTestCase("1730448", 1, "");
+		softAssert5.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("Library: All Titles tab - Sort by Title");
 		System.out.println("Test Failed - C1730448");
 		TestBase.addResultForTestCase("1730448", 5, "");
+		softAssert5.assertTrue(false);
+
 	}
 	}
 	catch (Exception e) {
@@ -918,11 +918,15 @@ public void sortByTitle() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert5.assertAll();
+
 }
-//@Test(priority=7)
-public void sortByAuthor() throws Exception
+// @Test(priority=7)
+public void C1730449_sortByAuthor() throws Exception
 
 {	
+	SoftAssert softAssert6 = new SoftAssert();
+
 	try {
 	waitUntilVisible(page.getLibraryScreen().getTxtFilterSortType());
 	touchAtCenterOfElement(page.getLibraryScreen().getTxtFilterSortType());
@@ -940,6 +944,8 @@ public void sortByAuthor() throws Exception
 		System.out.println("Library: All Titles tab - Sort by Author");
 		System.out.println("Test Passed - C1730449");
 		TestBase.addResultForTestCase("1730449", 1, "");
+		softAssert6.assertTrue(true);
+
 
 	}
 	else
@@ -947,6 +953,8 @@ public void sortByAuthor() throws Exception
 		System.out.println("Library: All Titles tab - Sort by Author");
 		System.out.println("Test Failed - C1730449");
 		TestBase.addResultForTestCase("1730449", 5, "");
+		softAssert6.assertTrue(false);
+
 
 	}
 	waitUntilVisible(page.getLibraryScreen().getTxtFilterSortType());
@@ -1033,12 +1041,16 @@ public void sortByAuthor() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert6.assertAll();
+
 }
 
-//@Test(priority=8)
-public void allTitlesPdp() throws Exception
+// @Test(priority=8)
+public void C1736713_allTitlesPdp() throws Exception
 
 {	
+	SoftAssert softAssert7 = new SoftAssert();
+
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -1070,12 +1082,16 @@ public void allTitlesPdp() throws Exception
 		System.out.println("Library: All Titles tab - PDP (Product Detail Page)");
 		System.out.println("Test Passed - C1736713");
 		TestBase.addResultForTestCase("1736713", 1, "");
+		softAssert7.assertTrue(true);
+
 	}
 	else
 	{
 		System.out.println("Library: All Titles tab - PDP (Product Detail Page)");
 		System.out.println("Test Failed - C1736713");
 		TestBase.addResultForTestCase("1736713", 5, "");
+		softAssert7.assertTrue(false);
+
 	}
 	waitUntilVisible(page.getPdpScreen().getBtnBack());
 	touchAtCenterOfElement(page.getPdpScreen().getBtnBack());
@@ -1157,12 +1173,16 @@ public void allTitlesPdp() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert7.assertAll();
+
 }
 
-//@Test(priority=9)
-public void archiveAnItem() throws Exception
+// @Test(priority=9)
+public void C1697697_archiveAnItem() throws Exception
 
 {	
+	SoftAssert softAssert8 = new SoftAssert();
+
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getTxtFilterMediaTypes());
@@ -1185,12 +1205,16 @@ public void archiveAnItem() throws Exception
 		System.out.println("Library: All Titles tab - Archive an item");
 		System.out.println("Test Passed - C1697697");
 		TestBase.addResultForTestCase("1697697", 1, "");
+		softAssert8.assertTrue(true);
+
 	}
 	else
 	{
 		System.out.println("Library: All Titles tab - Archive an item");
 		System.out.println("Test Failed - C1697697");
 		TestBase.addResultForTestCase("1697697", 5, "");
+		softAssert8.assertTrue(false);
+
 	}
 	waitUntilVisible(page.getLibraryScreen().getImgCatalogNordStorm());
 	longPress(page.getLibraryScreen().getImgCatalogNordStorm());
@@ -1276,12 +1300,16 @@ public void archiveAnItem() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert8.assertAll();
+
 }
 
-//@Test(priority=10)
-public void unarchiveAnItem() throws Exception
+// @Test(priority=10)
+public void C1697698_unarchiveAnItem() throws Exception
 
 {
+	SoftAssert softAssert9 = new SoftAssert();
+
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getTxtFilterMediaTypes());
@@ -1294,12 +1322,16 @@ public void unarchiveAnItem() throws Exception
 		System.out.println("Library: All Titles tab - Unarchive an item");
 		System.out.println("Test Passed - C1697698");
 		TestBase.addResultForTestCase("1697698", 1, "");
+		softAssert9.assertTrue(true);
+
 	}
 	else
 	{
 		System.out.println("Library: All Titles tab - Unarchive an item");
 		System.out.println("Test Failed - C1697698");
 		TestBase.addResultForTestCase("1697698", 5, "");
+		softAssert9.assertTrue(false);
+
 	
 	}
 	}
@@ -1378,12 +1410,15 @@ public void unarchiveAnItem() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert9.assertAll();
 }
 
-//@Test(priority=11)
-public void permenantlyDelete() throws Exception
+// @Test(priority=11)
+public void C1729639_permenantlyDelete() throws Exception
 
 {	
+	SoftAssert softAssert10 = new SoftAssert();
+
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnBottomNavEbooks());
@@ -1477,12 +1512,15 @@ public void permenantlyDelete() throws Exception
 		System.out.println("Library: All Titles tab - Permanently Delete");
 		System.out.println("Test Passed - C1729639");
 		TestBase.addResultForTestCase("1729639", 1, "");
+		softAssert10.assertTrue(true);
+
 	}
 	else
 	{
 		System.out.println("Library: All Titles tab - Permanently Delete");
 		System.out.println("Test Failed - C1729639");
 		TestBase.addResultForTestCase("1729639", 5, "");
+		softAssert10.assertTrue(false);
 	}
 	waitUntilVisible(page.getLibraryScreen().getBtnBack());
 	touchAtCenterOfElement(page.getLibraryScreen().getBtnBack());
@@ -1562,12 +1600,16 @@ public void permenantlyDelete() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert10.assertAll();
+
 }
 
-//@Test(priority=12)
-public void viewAnnotations() throws Exception
+// @Test(priority=12)
+public void C1736700_viewAnnotations() throws Exception
 
 {	
+	SoftAssert softAssert11 = new SoftAssert();
+
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -1597,12 +1639,16 @@ public void viewAnnotations() throws Exception
 		System.out.println("Library: All Titles tab - View annotations");
 		System.out.println("Test Passed - C1736700");
 		TestBase.addResultForTestCase("1736700", 1, "");
+		softAssert11.assertTrue(true);
+
 	}
 	else
 	{
 		System.out.println("Library: All Titles tab - View annotations");
 		System.out.println("Test Failed - C1736700");
 		TestBase.addResultForTestCase("1736700", 5, "");
+		softAssert11.assertTrue(false);
+
 	}
 	waitUntilVisible(page.getLibraryScreen().getBtnBack());
 	touchAtCenterOfElement(page.getLibraryScreen().getBtnBack());
@@ -1684,12 +1730,14 @@ catch (Exception e) {
 	waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 	touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 }
+    softAssert11.assertAll();
 }
 
-//@Test(priority=13)
-public void createShelf() throws Exception
+// @Test(priority=13)
+public void C1697699_createShelf() throws Exception
 
 {
+	SoftAssert softAssert12 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getTxtTabShelves());
@@ -1720,12 +1768,14 @@ public void createShelf() throws Exception
 		System.out.println("Library: Shelves tab - Create shelf");
 		System.out.println("Test Passed - C1697699");
 		TestBase.addResultForTestCase("1697699", 1, "");
+		softAssert12.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("Library: Shelves tab - Create shelf");
 		System.out.println("Test Failed - C1697699");
 		TestBase.addResultForTestCase("1697699", 5, "");
+		softAssert12.assertTrue(false);
 	}
 	Thread.sleep(7000);
 }
@@ -1804,13 +1854,15 @@ public void createShelf() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert12.assertAll();
 }
 
 
-//@Test(priority=14)
-public void renameShelf() throws Exception
+// @Test(priority=14)
+public void C1729658_renameShelf() throws Exception
 
 {	
+	SoftAssert softAssert13 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getTxtTabShelves());
@@ -1833,12 +1885,14 @@ public void renameShelf() throws Exception
 		System.out.println("Library: Shelves tab - Rename shelf");
 		System.out.println("Test Passed - C1729658");
 		TestBase.addResultForTestCase("1729658", 1, "");
+		softAssert13.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("Library: Shelves tab - Rename shelf");
 		System.out.println("Test Failed - C1729658");
 		TestBase.addResultForTestCase("1729658", 1, "");
+		softAssert13.assertTrue(false);
 	}
 	waitUntilVisible(page.getLibraryScreen().getBtnBack());
 	touchAtCenterOfElement(page.getLibraryScreen().getBtnBack());
@@ -1918,13 +1972,15 @@ public void renameShelf() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert13.assertAll();
 }
 
 
-//@Test(priority=15)
-public void manageContentInShelf() throws Exception
+// @Test(priority=15)
+public void C1729659_manageContentInShelf() throws Exception
 
 {	
+	SoftAssert softAssert14 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getTxtTabShelves());
@@ -1949,6 +2005,8 @@ public void manageContentInShelf() throws Exception
 		System.out.println("Library: Shelves tab - Manage content in shelf");
 		System.out.println("Test Passed - C1729659");
 		TestBase.addResultForTestCase("1729659", 1, "");
+		softAssert14.assertTrue(true);
+
 		
 	}
 	else
@@ -1956,6 +2014,7 @@ public void manageContentInShelf() throws Exception
 		System.out.println("Library: Shelves tab - Manage content in shelf");
 		System.out.println("Test Failed - C1729659");
 		TestBase.addResultForTestCase("1729659", 5, "");
+		softAssert14.assertTrue(false);
 	}
 	if(isElementDisplayed(page.getLibraryScreen().getBtnBack()))
 	{
@@ -2037,12 +2096,14 @@ public void manageContentInShelf() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert14.assertAll();
 	
 }
-//@Test(priority=16)
-public void deleteShelf() throws Exception
+// @Test(priority=16)
+public void C1729657_deleteShelf() throws Exception
 
 {	
+	SoftAssert softAssert15 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getTxtTabShelves());
@@ -2063,12 +2124,14 @@ public void deleteShelf() throws Exception
 		System.out.println("Library: Shelves tab - Delete shelf");
 		System.out.println("Test Passed - C1729657");
 		TestBase.addResultForTestCase("1729657", 1, "");
+		softAssert15.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("Library: Shelves tab - Delete shelf");
 		System.out.println("Test Failed - C1729657");
 		TestBase.addResultForTestCase("1729657", 5, "");
+		softAssert15.assertTrue(false);
 	}
 	waitUntilVisible(page.getLibraryScreen().getTxtTabAllTitles());
 	touchAtCenterOfElement(page.getLibraryScreen().getTxtTabAllTitles());
@@ -2148,11 +2211,13 @@ public void deleteShelf() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert15.assertAll();
 	
 }
-//@Test(priority=17)
-public void markAsCompleted() throws Exception
+// @Test(priority=17)
+public void C1735164_markAsCompleted() throws Exception
 {
+	SoftAssert softAssert16 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnMoreOptions());
@@ -2181,12 +2246,14 @@ public void markAsCompleted() throws Exception
 		System.out.println("Library: Manage Progress - Mark as Completed");
     	System.out.println("Test Passed - C1735164");
 		TestBase.addResultForTestCase("1735164", 1, "");
+		softAssert16.assertTrue(true);
     }
     else
     {
 		System.out.println("Library: Manage Progress - Mark as Completed");
     	System.out.println("Test Failed - C1735164");
 		TestBase.addResultForTestCase("1735164", 5, "");
+		softAssert16.assertTrue(false);
     }
 	}
 	catch (Exception e) {
@@ -2267,13 +2334,14 @@ public void markAsCompleted() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnGridView());
 
 	}
-	
+    softAssert16.assertAll();
 }
 
-//@Test(priority=18)
-public void markAsNotStarted() throws Exception
+// @Test(priority=18)
+public void C1735165_markAsNotStarted() throws Exception
 
 {
+	SoftAssert softAssert17 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnMoreOptions());
@@ -2294,12 +2362,14 @@ public void markAsNotStarted() throws Exception
 		System.out.println("Library: Manage Progress - Mark as Not Started");
     	System.out.println("Test Passed - C1735165");
 		TestBase.addResultForTestCase("1735165", 1, "");
+		softAssert17.assertTrue(true);
     }
     else
     {
 		System.out.println("Library: Manage Progress - Mark as Not Started");
     	System.out.println("Test Failed - C1735165");
 		TestBase.addResultForTestCase("1735165", 5, "");
+		softAssert17.assertTrue(false);
     }
     waitUntilVisible(page.getLibraryScreen().getBtnListView());
     touchAtCenterOfElement(page.getLibraryScreen().getBtnListView());
@@ -2379,12 +2449,14 @@ public void markAsNotStarted() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert17.assertAll();
 	
 }
-//@Test(priority=19)
-public void unreadItemsOnlyEnable() throws Exception
+// @Test(priority=19)
+public void C1736710_unreadItemsOnlyEnable() throws Exception
 
 {
+	SoftAssert softAssert18 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getTxtFilterMediaTypes());
@@ -2431,12 +2503,14 @@ public void unreadItemsOnlyEnable() throws Exception
 		System.out.println("Library: Settings - Enable \"\"Unread Items Only\"\"");
 		System.out.println("Test Passed - C1736710");
 		TestBase.addResultForTestCase("1736710", 1, "");
+		softAssert18.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("Library: Settings - Enable \"\"Unread Items Only\"\"");
 		System.out.println("Test Failed - C1736710");
 		TestBase.addResultForTestCase("1736710", 5, "");
+		softAssert18.assertTrue(false);
 	}
 
 	}
@@ -2515,12 +2589,15 @@ public void unreadItemsOnlyEnable() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert18.assertAll();
+
 	
 }
-//@Test(priority=20)
-public void unreadItemsOnlyDisable() throws Exception
+// @Test(priority=20)
+public void C1736709_unreadItemsOnlyDisable() throws Exception
 
 {
+	SoftAssert softAssert19 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnMoreOptions());
@@ -2561,12 +2638,14 @@ public void unreadItemsOnlyDisable() throws Exception
 		System.out.println("Library: Settings - Disable \"\"Unread Items Only\"\"");
 		System.out.println("Test Passed - C1736709");
 		TestBase.addResultForTestCase("1736709", 1, "");
+		softAssert19.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("Library: Settings - Disable \"\"Unread Items Only\"\"");
 		System.out.println("Test Failed - C1736709");
 		TestBase.addResultForTestCase("1736709", 5, "");
+		softAssert19.assertTrue(false);
 	}
 	waitUntilVisible(page.getLibraryScreen().getTxtFilterMediaTypes());
 	touchAtCenterOfElement(page.getLibraryScreen().getTxtFilterMediaTypes());
@@ -2648,13 +2727,15 @@ public void unreadItemsOnlyDisable() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 }
+    softAssert19.assertAll();
 }
 
 
-//@Test(priority=21)
-public void downloadedItemsOnlyEnable() throws Exception
+// @Test(priority=21)
+public void C1736703_downloadedItemsOnlyEnable() throws Exception
 
 {
+	SoftAssert softAssert20 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnMoreOptions());
@@ -2683,12 +2764,14 @@ public void downloadedItemsOnlyEnable() throws Exception
 		System.out.println("Library: Settings - Enable \"\"Downloaded Items Only\"\"");
 		System.out.println("Test Passed - C1736703");
 		TestBase.addResultForTestCase("1736703", 1, "");
+		softAssert20.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("Library: Settings - Enable \"\"Downloaded Items Only\"\"");
 		System.out.println("Test Failed - C1736703");
 		TestBase.addResultForTestCase("1736703", 5, "");
+		softAssert20.assertTrue(false);
 	}
 	}
 	catch (Exception e) {
@@ -2766,12 +2849,15 @@ public void downloadedItemsOnlyEnable() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert20.assertAll();
 }
 
-//@Test(priority=22)
-public void downloadedItemsOnlyDiable() throws Exception
+// @Test(priority=22)
+public void C1736706_downloadedItemsOnlyDiable() throws Exception
 
 {
+	SoftAssert softAssert21 = new SoftAssert();
+
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnMoreOptions());
@@ -2800,12 +2886,15 @@ public void downloadedItemsOnlyDiable() throws Exception
 		System.out.println("Library: Settings - Disable \"\"Downloaded Items Only\"\"");
 		System.out.println("Test Passed - C1736706");
 		TestBase.addResultForTestCase("1736706", 1, "");
+		softAssert21.assertTrue(true);
+
 	}
 	else
 	{
 		System.out.println("Library: Settings - Disable \"\"Downloaded Items Only\"\"");
 		System.out.println("Test Failed - C1736706");
 		TestBase.addResultForTestCase("1736706", 5, "");
+		softAssert21.assertTrue(false);
 	}
 	}
 	catch (Exception e) {
@@ -2883,12 +2972,14 @@ public void downloadedItemsOnlyDiable() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert21.assertAll();
 }
 
-//@Test(priority=23)
-public void AnnotatedItemsOnlyEnable() throws Exception
+// @Test(priority=23)
+public void C1736711_AnnotatedItemsOnlyEnable() throws Exception
 
 {
+	SoftAssert softAssert22 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnMoreOptions());
@@ -2920,12 +3011,14 @@ public void AnnotatedItemsOnlyEnable() throws Exception
 		System.out.println("Library: Settings - Enable \"\"Annotated Item Only\"\"");
 		System.out.println("Test Passed - C1736711");
 		TestBase.addResultForTestCase("1736711", 1, "");
+		softAssert22.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("Library: Settings - Enable \"\"Annotated Item Only\"\"");
 		System.out.println("Test Failed - C1736711");
 		TestBase.addResultForTestCase("1736711", 5, "");
+		softAssert22.assertTrue(false);
 	}
 	}
 	catch (Exception e) {
@@ -3003,12 +3096,14 @@ public void AnnotatedItemsOnlyEnable() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert22.assertAll();
 }
 
-//@Test(priority=24)
-public void AnnotatedItemsOnlyDisable() throws Exception
+// @Test(priority=24)
+public void C1736712_AnnotatedItemsOnlyDisable() throws Exception
 
 {
+	SoftAssert softAssert23 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnMoreOptions());
@@ -3036,12 +3131,14 @@ public void AnnotatedItemsOnlyDisable() throws Exception
 		System.out.println("Library: Settings - Disable  \"\"Annotated Item Only\"\"");
 		System.out.println("Test Passed - C1736712");
 		TestBase.addResultForTestCase("1736712", 1, "");
+		softAssert23.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("Library: Settings - Disable  \"\"Annotated Item Only\"\"");
 		System.out.println("Test Failed - C1736712");
 		TestBase.addResultForTestCase("1736712", 5, "");
+		softAssert23.assertTrue(false);
 	}
 	}
 	catch (Exception e) {
@@ -3119,11 +3216,13 @@ public void AnnotatedItemsOnlyDisable() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert23.assertAll();
 }
-//@Test(priority=25)
-public void showSamplesEnable() throws Exception
+// @Test(priority=25)
+public void C1736707_showSamplesEnable() throws Exception
 
 {
+	SoftAssert softAssert24 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnMoreOptions());
@@ -3152,12 +3251,14 @@ public void showSamplesEnable() throws Exception
 		System.out.println("Library: Settings - Enable \"\"Show Samples\"\"");
 		System.out.println("Test Passed - C1736707");
 		TestBase.addResultForTestCase("1736707", 1, "");
+		softAssert24.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("Library: Settings - Enable \"\"Show Samples\"\"");
 		System.out.println("Test Failed - C1736707");
 		TestBase.addResultForTestCase("1736707", 5, "");
+		softAssert24.assertTrue(false);
 	}
 	}
 	catch (Exception e) {
@@ -3235,11 +3336,14 @@ public void showSamplesEnable() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+	  softAssert24.assertAll();
 }
-//@Test(priority=26)
-public void showSamplesDisable() throws Exception
+// @Test(priority=26)
+public void C1736704_showSamplesDisable() throws Exception
 
 {
+	SoftAssert softAssert25 = new SoftAssert();
+
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnMoreOptions());
@@ -3268,12 +3372,15 @@ public void showSamplesDisable() throws Exception
 		System.out.println("Library: Settings - Disable \"\"Show Samples\"\"");
 		System.out.println("Test Passed - C1736704");
 		TestBase.addResultForTestCase("1736704", 1, "");
+		softAssert25.assertTrue(true);
+
 	}
 	else
 	{
 		System.out.println("Library: Settings - Disable \"\"Show Samples\"\"");
 		System.out.println("Test Failed - C1736704");
 		TestBase.addResultForTestCase("1736704", 5, "");
+		softAssert25.assertTrue(false);
 	}
 	}
 	catch (Exception e) {
@@ -3351,12 +3458,14 @@ public void showSamplesDisable() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert25.assertAll();
 }
 
-//@Test(priority=27)
-public void showShelvedItemsEnable() throws Exception
+// @Test(priority=27)
+public void C1736708_showShelvedItemsEnable() throws Exception
 
 {
+	SoftAssert softAssert26 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnMoreOptions());
@@ -3413,12 +3522,14 @@ public void showShelvedItemsEnable() throws Exception
 		System.out.println("Library: Settings - Enable \"\"Show Shelved Items\"\"");
 		System.out.println("Test Passed - C1736708");
 		TestBase.addResultForTestCase("1736708", 1, "");
+		softAssert26.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("Library: Settings - Enable \"\"Show Shelved Items\"\"");
 		System.out.println("Test Failed - C1736708");
 		TestBase.addResultForTestCase("1736708", 5, "");
+		softAssert26.assertTrue(false);
 	}
 	}
 	catch (Exception e) {
@@ -3496,11 +3607,13 @@ public void showShelvedItemsEnable() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+	  softAssert26.assertAll();
 }
-//@Test(priority=28)
-public void showShelvedItemsDisable() throws Exception
+// @Test(priority=28)
+public void C1736705_showShelvedItemsDisable() throws Exception
 
 {
+	SoftAssert softAssert27 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnMoreOptions());
@@ -3528,12 +3641,14 @@ public void showShelvedItemsDisable() throws Exception
 		System.out.println("Library: Settings - Disable \"\"Show Shelved Items\"\"");
 		System.out.println("Test Passed - C1736705");
 		TestBase.addResultForTestCase("1736705", 1, "");
+		softAssert27.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("Library: Settings - Disable \"\"Show Shelved Items\"\"");
 		System.out.println("Test Failed - C1736705");
 		TestBase.addResultForTestCase("1736705", 5, "");
+		softAssert27.assertTrue(false);
 	}
 	}
 	catch (Exception e) {
@@ -3611,11 +3726,14 @@ public void showShelvedItemsDisable() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert27.assertAll();
+
 }
-//@Test(priority=29)
-public void searchInLibraryAndBookstore() throws Exception
+// @Test(priority=29)
+public void C1697666_searchInLibraryAndBookstore() throws Exception
 
 {
+	SoftAssert softAssert28 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnMoreOptions());
@@ -3677,6 +3795,7 @@ public void searchInLibraryAndBookstore() throws Exception
 		System.out.println("Search: Search in Library and Bookstore");
 		System.out.println("Test Passed - C1697666");
 		TestBase.addResultForTestCase("1697666", 1, "");
+		softAssert28.assertTrue(true);
 
 	}
 	else
@@ -3684,6 +3803,7 @@ public void searchInLibraryAndBookstore() throws Exception
 		System.out.println("Search: Search in Library and Bookstore");
 		System.out.println("Test Failed - C1697666");
 		TestBase.addResultForTestCase("1697666", 5, "");
+		softAssert28.assertTrue(false);
 	}
 	waitUntilVisible(page.getLibraryScreen().getBtnCancelSearch());
 	touchAtCenterOfElement(page.getLibraryScreen().getBtnCancelSearch());
@@ -3763,9 +3883,10 @@ public void searchInLibraryAndBookstore() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert28.assertAll();
 }
 
-//@Test(priority=30)
+// @Test(priority=30)
 public void librarySignOut() throws Exception
 
 {
@@ -3826,7 +3947,7 @@ public void librarySignOut() throws Exception
 	}
 }
 
-//@Test(priority=31)
+// @Test(priority=31)
 public void epubSignIn() throws Exception
 
 {
@@ -3943,10 +4064,11 @@ public void epubSignIn() throws Exception
 	}
 }
 
-//@Test(priority=32)
-public void navigateByMargins() throws Exception
+// @Test(priority=32)
+public void C1736720_navigateByMargins() throws Exception
 
 {
+	SoftAssert softAssert29 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -4002,12 +4124,14 @@ public void navigateByMargins() throws Exception
 		System.out.println("EPUB: Navigate by tapping margins");
 		System.out.println("Test Passed - C1736720");
 		TestBase.addResultForTestCase("1736720", 1, "");
+		softAssert29.assertTrue(true);
 	}
 	else
 	{	
 		System.out.println("EPUB: Navigate by tapping margins");
 		System.out.println("Test Failed - C1736720");
 		TestBase.addResultForTestCase("1736720", 5, "");
+		softAssert29.assertTrue(false);
 	}
 	waitUntilVisible(page.getReaderScreen().getBtnBackToLibrary());
 	touchAtCenterOfElement(page.getReaderScreen().getBtnBackToLibrary());
@@ -4089,11 +4213,14 @@ public void navigateByMargins() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert29.assertAll();
+
 }
-//@Test(priority=33)
-public void navigateBySwiping() throws Exception
+// @Test(priority=33)
+public void C1736721_navigateBySwiping() throws Exception
 
 {
+	SoftAssert softAssert30 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -4132,12 +4259,14 @@ public void navigateBySwiping() throws Exception
 		System.out.println("EPUB: Navigate by swiping");
 		System.out.println("Test Passed - C1736721");
 		TestBase.addResultForTestCase("1736721", 1, "");
+		softAssert30.assertTrue(true);
 	}
 	else
 	{	
 		System.out.println("EPUB: Navigate by swiping");
 		System.out.println("Test Failed - C1736721");
 		TestBase.addResultForTestCase("1736721", 5, "");
+		softAssert30.assertTrue(false);
 	}
 	waitUntilVisible(page.getReaderScreen().getBtnBackToLibrary());
 	touchAtCenterOfElement(page.getReaderScreen().getBtnBackToLibrary());
@@ -4219,11 +4348,13 @@ public void navigateBySwiping() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+	softAssert30.assertAll();
 }
-//@Test(priority=34)
-public void gotoPage() throws Exception
+// @Test(priority=34)
+public void C1736722_gotoPage() throws Exception
 
 {
+	SoftAssert softAssert31 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -4261,12 +4392,14 @@ public void gotoPage() throws Exception
 		System.out.println("EPUB: Go Back to Page");
 		System.out.println("Test Passed - C1736722");
 		TestBase.addResultForTestCase("1736722", 1, "");
+		softAssert31.assertTrue(true);
 	}
 	else
 	{	
 		System.out.println("EPUB: Go Back to Page");
 		System.out.println("Test Failed - C1736722");
 		TestBase.addResultForTestCase("1736722", 5, "");
+		softAssert31.assertTrue(false);
 
 	}
 	waitUntilVisible(page.getReaderScreen().getBtnBackToLibrary());
@@ -4349,11 +4482,13 @@ public void gotoPage() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+	   softAssert31.assertAll();
 }
-//@Test(priority=35)
-public void addOrRemoveBookmarkOvrFlow() throws Exception
+// @Test(priority=35)
+public void C1736723_addOrRemoveBookmarkOvrFlow() throws Exception
 
 {
+	SoftAssert softAssert32 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -4386,12 +4521,14 @@ public void addOrRemoveBookmarkOvrFlow() throws Exception
 		System.out.println("EPUB: Add/Remove Bookmark via overflow menu");
 		System.out.println("Test Passed - C1736723");
 		TestBase.addResultForTestCase("1736723", 1, "");
+		softAssert32.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("EPUB: Add/Remove Bookmark via overflow menu");
 		System.out.println("Test Failed - C1736723");
 		TestBase.addResultForTestCase("1736723", 5, "");
+		softAssert32.assertTrue(false);
 	}
 	waitUntilVisible(page.getReaderScreen().getBtnCancel());
 	touchAtCenterOfElement(page.getReaderScreen().getBtnCancel());
@@ -4475,11 +4612,13 @@ public void addOrRemoveBookmarkOvrFlow() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert32.assertAll();
 }
-//@Test(priority=36)
-public void addOrRemoveBookmarkTapCorner() throws Exception
+// @Test(priority=36)
+public void C1736724_addOrRemoveBookmarkTapCorner() throws Exception
 
 {
+	SoftAssert softAssert33 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -4506,12 +4645,14 @@ public void addOrRemoveBookmarkTapCorner() throws Exception
 		System.out.println("EPUB: Add/Remove Bookmark by tapping top-right corner");
 		System.out.println("Test Passed - C1736724");
 		TestBase.addResultForTestCase("1736724", 1, "");
+		softAssert33.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("EPUB: Add/Remove Bookmark by tapping top-right corner");
 		System.out.println("Test Failed - C1736724");
 		TestBase.addResultForTestCase("1736724", 5, "");
+		softAssert33.assertTrue(false);
 	}
 	if(isElementDisplayed(page.getReaderScreen().getBtnContents())!=true)
 	{
@@ -4598,12 +4739,14 @@ public void addOrRemoveBookmarkTapCorner() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert33.assertAll();
 }
 
-//@Test(priority=37)
-public void toc() throws Exception
+// @Test(priority=37)
+public void C1697671_toc() throws Exception
 
 {
+	SoftAssert softAssert34 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -4630,12 +4773,14 @@ public void toc() throws Exception
 		System.out.println("EPUB: Launch TOC (Table of Contents)");
 		System.out.println("Test Passed - C1697671");
 		TestBase.addResultForTestCase("1697671", 1, "");
+		softAssert34.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("EPUB: Launch TOC (Table of Contents)");
 		System.out.println("Test Failed - C1697671");
 		TestBase.addResultForTestCase("1697671", 5, "");
+		softAssert34.assertTrue(false);
 	}
 	waitUntilVisible(page.getReaderScreen().getBtnCancelContentsTab());
 	touchAtCenterOfElement(page.getReaderScreen().getBtnCancelContentsTab());
@@ -4719,11 +4864,13 @@ public void toc() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+	   softAssert34.assertAll();
 }
-//@Test(priority=38)
-public void launchAllAnnotations() throws Exception
+// @Test(priority=38)
+public void C1736732_launchAllAnnotations() throws Exception
 
 {
+	SoftAssert softAssert35 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -4752,12 +4899,14 @@ public void launchAllAnnotations() throws Exception
 		System.out.println("EPUB: Launch All Annotations Page");
 		System.out.println("Test Passed - C1736732");
 		TestBase.addResultForTestCase("1736732", 1, "");
+		softAssert35.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("EPUB: Launch All Annotations Page");
 		System.out.println("Test Failed - C1736732");
 		TestBase.addResultForTestCase("1736732", 5, "");
+		softAssert35.assertTrue(false);
 	}
 	waitUntilVisible(page.getReaderScreen().getBtnBack());
 	touchAtCenterOfElement(page.getReaderScreen().getBtnBack());
@@ -4844,11 +4993,13 @@ public void launchAllAnnotations() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+	softAssert35.assertAll();
 }
-//@Test(priority=39)
-public void goToPage() throws Exception
+// @Test(priority=39)
+public void C1697676_goToPage() throws Exception
 
 {
+	SoftAssert softAssert36 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getTxtTitleLibrary());
@@ -4885,12 +5036,14 @@ public void goToPage() throws Exception
 		System.out.println("EPUB: Go to page");
 		System.out.println("Test Passed - C1697676");
 		TestBase.addResultForTestCase("1697676", 1, "");
+		softAssert36.assertTrue(true);
 	}
 	else
 	{	
 		System.out.println("EPUB: Go to page");
 		System.out.println("Test Failed - C1697676");
 		TestBase.addResultForTestCase("1697676", 5, "");
+		softAssert36.assertTrue(false);
 	}
 	waitUntilVisible(page.getReaderScreen().getBtnBackToLibrary());
 	touchAtCenterOfElement(page.getReaderScreen().getBtnBackToLibrary());
@@ -4975,11 +5128,13 @@ public void goToPage() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+	  softAssert36.assertAll();
 }
-//@Test(priority=40)
-public void findInBook() throws Exception
+// @Test(priority=40)
+public void C1697677_findInBook() throws Exception
 
 {
+	SoftAssert softAssert37 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -5012,6 +5167,7 @@ public void findInBook() throws Exception
 		System.out.println("EPUB: Find in Book");
     	System.out.println("Test Passed - C1697677");
 		TestBase.addResultForTestCase("1697677", 1, "");
+		softAssert37.assertTrue(true);
 
     }
     else
@@ -5019,6 +5175,7 @@ public void findInBook() throws Exception
 		System.out.println("EPUB: Find in Book");
     	System.out.println("Test Passed - C1697677");
 		TestBase.addResultForTestCase("1697677", 5, "");
+		softAssert37.assertTrue(false);
 
     }
 	waitUntilVisible(page.getReaderScreen().getBtnBackToLibrary());
@@ -5106,11 +5263,13 @@ public void findInBook() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert37.assertAll();
 }
-//@Test(priority=41)
-public void viewDetails() throws Exception
+// @Test(priority=41)
+public void C1697678_viewDetails() throws Exception
 
 {
+	SoftAssert softAssert38 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -5139,12 +5298,14 @@ public void viewDetails() throws Exception
 		System.out.println("EPUB: View Details");
 		System.out.println("Test Passed - C1697678");
 		TestBase.addResultForTestCase("1697678", 1, "");
+		softAssert38.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("EPUB: View Details");
 		System.out.println("Test Failed - C1697678");
 		TestBase.addResultForTestCase("1697678", 5, "");
+		softAssert38.assertTrue(false);
 	}
 	waitUntilVisible(page.getPdpScreen().getBtnBack());
 	touchAtCenterOfElement(page.getPdpScreen().getBtnBack());
@@ -5228,11 +5389,13 @@ public void viewDetails() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+	  softAssert38.assertAll();
 }
-//@Test(priority=42)
-public void readerSettings() throws Exception
+// @Test(priority=42)
+public void C1736725_readerSettings() throws Exception
 
 {
+	SoftAssert softAssert39 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -5259,12 +5422,14 @@ public void readerSettings() throws Exception
 		System.out.println("EPUB: Launch Reader Settings");
 		System.out.println("Test Passed - C1736725");
 		TestBase.addResultForTestCase("1736725", 1, "");
+		softAssert39.assertTrue(true);
 	}
 	else
 	{		
 		System.out.println("EPUB: Launch Reader Settings");
 		System.out.println("Test Failed - C1736725");
 		TestBase.addResultForTestCase("1736725", 5, "");
+		softAssert39.assertTrue(false);
 	}
 	waitUntilVisible(page.getReaderScreen().getBtnCloseReaderSettings());
 	touchAtCenterOfElement(page.getReaderScreen().getBtnCloseReaderSettings());
@@ -5348,12 +5513,14 @@ public void readerSettings() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+	  softAssert39.assertAll();
 	
 }
-//@Test(priority=43)
-public void changeTextSize() throws Exception
+// @Test(priority=43)
+public void C1729665_changeTextSize() throws Exception
 
 {
+	SoftAssert softAssert40 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -5381,12 +5548,14 @@ public void changeTextSize() throws Exception
 		System.out.println("EPUB: Change Text Size");
 		System.out.println("Test Passed - C1729665");
 		TestBase.addResultForTestCase("1729665", 1, "");
+		softAssert40.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("EPUB: Change Text Size");
 		System.out.println("Test Failed - C1729665");
 		TestBase.addResultForTestCase("1729665", 5, "");
+		softAssert40.assertTrue(false);
 	}
 	waitUntilVisible(page.getReaderScreen().getBtnDecreaseFontSize());
 	touchAtCenterOfElement(page.getReaderScreen().getBtnDecreaseFontSize());
@@ -5471,11 +5640,13 @@ public void changeTextSize() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert40.assertAll();
 }
-//@Test(priority=44)
-public void changeTextFont() throws Exception
+// @Test(priority=44)
+public void C1729666_changeTextFont() throws Exception
 
 {
+	SoftAssert softAssert41 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -5507,12 +5678,14 @@ public void changeTextFont() throws Exception
 		System.out.println("EPUB: Change Text Font");
 		System.out.println("Test Passed - C1729666");
 		TestBase.addResultForTestCase("1729666", 1, "");
+		softAssert41.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("EPUB: Change Text Font");
 		System.out.println("Test Failed - C1729666");
 		TestBase.addResultForTestCase("1729666", 5, "");
+		softAssert41.assertTrue(false);
 	}
 	waitUntilVisible(page.getReaderScreen().getTxtFontGeorgia());
 	touchAtCenterOfElement(page.getReaderScreen().getTxtFontGeorgia());
@@ -5601,11 +5774,13 @@ public void changeTextFont() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+	   softAssert41.assertAll();
 }
-//@Test(priority=45)
-public void changeTextMargins() throws Exception
+// @Test(priority=45)
+public void C1729667_changeTextMargins() throws Exception
 
 {
+	SoftAssert softAssert42 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -5636,12 +5811,14 @@ public void changeTextMargins() throws Exception
         System.out.println("EPUB: Change Text Margins");
         System.out.println("Test passed - C1729667");
 		TestBase.addResultForTestCase("1729667", 1, "");
+		softAssert42.assertTrue(true);
 	}
 	else
 	{
         System.out.println("EPUB: Change Text Margins");
 		System.out.println("Test Failed - C1729667");
 		TestBase.addResultForTestCase("1729667", 5, "");
+		softAssert42.assertTrue(false);
 	}
 	waitUntilVisible(page.getReaderScreen().getImgMargin2());
 	touchAtCenterOfElement(page.getReaderScreen().getImgMargin2());
@@ -5726,11 +5903,13 @@ public void changeTextMargins() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+	softAssert42.assertAll();
 }
-//@Test(priority=46)
-public void changeTextLineSpacing() throws Exception
+// @Test(priority=46)
+public void C1729668_changeTextLineSpacing() throws Exception
 
 {
+	SoftAssert softAssert43 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -5761,12 +5940,14 @@ public void changeTextLineSpacing() throws Exception
         System.out.println("EPUB: Change Text Line Spacing");
         System.out.println("Test passed - C1729668");
 		TestBase.addResultForTestCase("1729668", 1, "");
+		softAssert43.assertTrue(true);
 	}
 	else
 	{
         System.out.println("EPUB: Change Text Line Spacing");
 		System.out.println("Test Failed - C1729668");
 		TestBase.addResultForTestCase("1729668", 5, "");
+		softAssert43.assertTrue(false);
 	}
 	waitUntilVisible(page.getReaderScreen().getImgLineSpacing2());
 	touchAtCenterOfElement(page.getReaderScreen().getImgLineSpacing2());
@@ -5851,11 +6032,13 @@ public void changeTextLineSpacing() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+	softAssert43.assertAll();
 }
-//@Test(priority=47)
-public void changeTextJustification() throws Exception
+// @Test(priority=47)
+public void C1729669_changeTextJustification() throws Exception
 
 {
+	SoftAssert softAssert44 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -5886,12 +6069,14 @@ public void changeTextJustification() throws Exception
         System.out.println("EPUB: Change Text Justification");
         System.out.println("Test passed - C1729669");
 		TestBase.addResultForTestCase("1729669", 1, "");
+		softAssert44.assertTrue(true);
 	}
 	else
 	{
         System.out.println("EPUB: Change Text Justification");
 		System.out.println("Test Failed - C1729669");
 		TestBase.addResultForTestCase("1729669", 5, "");
+		softAssert44.assertTrue(false);
 	}
 	waitUntilVisible(page.getReaderScreen().getImgJustify2());
 	touchAtCenterOfElement(page.getReaderScreen().getImgJustify2());
@@ -5976,11 +6161,14 @@ public void changeTextJustification() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert44.assertAll();
+
 }
-//@Test(priority=48)
-public void lastReadPage() throws Exception
+// @Test(priority=48)
+public void C1697680_lastReadPage() throws Exception
 
 {
+	SoftAssert softAssert45 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -6025,12 +6213,14 @@ public void lastReadPage() throws Exception
 		System.out.println("EPUB: Keep LRP (Last Read Page)");
 		System.out.println("Test Passed - C1697680");
 		TestBase.addResultForTestCase("1697680", 1, "");
+		softAssert45.assertTrue(true);
 	}
 	else
 	{	
 		System.out.println("EPUB: Keep LRP (Last Read Page)");
 		System.out.println("Test Failed - C1697680");
 		TestBase.addResultForTestCase("1697680", 5, "");
+		softAssert45.assertTrue(false);
 	}
 	waitUntilVisible(page.getReaderScreen().getBtnBackToLibrary());
 	touchAtCenterOfElement(page.getReaderScreen().getBtnBackToLibrary());
@@ -6112,11 +6302,13 @@ public void lastReadPage() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert45.assertAll();
 }
-//@Test(priority=49)
-public void eob() throws Exception
+// @Test(priority=49)
+public void C1734553_eob() throws Exception
 
 {
+	SoftAssert softAssert46 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -6243,12 +6435,14 @@ public void eob() throws Exception
 		System.out.println("EPUB: EOB (End of Book)");
 		System.out.println("Test Passed - C1734553");
 		TestBase.addResultForTestCase("1734553", 1, "");
+		softAssert46.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("EPUB: EOB (End of Book)");
 		System.out.println("Test Failed - C1734553");
 		TestBase.addResultForTestCase("1734553", 5, "");
+		softAssert46.assertTrue(false);
 	}
 	waitUntilVisible(page.getLibraryScreen().getBtnCancelSearch());
 	touchAtCenterOfElement(page.getLibraryScreen().getBtnCancelSearch());
@@ -6328,11 +6522,13 @@ public void eob() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+	   softAssert46.assertAll();
 }
-//@Test(priority=50)
-public void openAndReadPdf() throws Exception
+// @Test(priority=50)
+public void C1729648_openAndReadPdf() throws Exception
 
 {
+	SoftAssert softAssert47 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -6370,12 +6566,14 @@ public void openAndReadPdf() throws Exception
 		System.out.println("PDF: Open and read");
 		System.out.println("Test Passed - C1729648");
 		TestBase.addResultForTestCase("1729648", 1, "");
+		softAssert47.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("PDF: Open and read");
 		System.out.println("Test Failed - C1729648");
 		TestBase.addResultForTestCase("1729648", 5, "");
+		softAssert47.assertTrue(false);
 	}
 	if(isElementDisplayed(page.getReaderScreen().getBtnBackToLibrary())!=true)
 	{
@@ -6461,11 +6659,13 @@ public void openAndReadPdf() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+	   softAssert47.assertAll();
 }
-//@Test(priority=51)
+// @Test(priority=51)
 public void epubSignOut() throws Exception
 
 {
+	
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnBottomNavAccounts());
@@ -6520,7 +6720,7 @@ public void epubSignOut() throws Exception
 		driver.activateApp(bundleId);
 	}
 }
-//@Test(priority=52)
+// @Test(priority=52)
 public void drpSignIn() throws Exception
 
 {
@@ -6638,10 +6838,11 @@ public void drpSignIn() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-//@Test(priority=53)
-public void drpNavigateBySwiping() throws Exception
+// @Test(priority=53)
+public void C1697693_drpNavigateBySwiping() throws Exception
 
 {
+	SoftAssert softAssert48 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -6684,12 +6885,14 @@ public void drpNavigateBySwiping() throws Exception
 		System.out.println("DRP: Navigate by swiping");
 		System.out.println("Test Passed - C1697693");
 		TestBase.addResultForTestCase("1697693", 1, "");
+		softAssert48.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("DRP: Navigate by swiping");
 		System.out.println("Test Failed - C1697693");	
 		TestBase.addResultForTestCase("1697693", 5, "");
+		softAssert48.assertTrue(false);
 	}
 	touchAtCenterOfElement(page.getReaderScreen().getImgPage0Magazine());
 	waitUntilVisible(page.getReaderScreen().getBtnBackToLibrary());
@@ -6772,11 +6975,13 @@ public void drpNavigateBySwiping() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert48.assertAll();
 }
-//@Test(priority=54)
-public void addOOrRemoveBoomark() throws Exception
+// @Test(priority=54)
+public void C1697692_addOrRemoveBoomark() throws Exception
 
 {
+	SoftAssert softAssert49 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -6797,12 +7002,14 @@ public void addOOrRemoveBoomark() throws Exception
 		System.out.println("DRP: Add/Remove Bookmark");
 		System.out.println("Test Passed - C1697692");
 		TestBase.addResultForTestCase("1697692", 1, "");
+		softAssert49.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("DRP: Add/Remove Bookmark");
 		System.out.println("Test Failed - C1697692");
 		TestBase.addResultForTestCase("1697692", 5, "");
+		softAssert49.assertTrue(false);
 	}
 	touchAtCenterOfElement(page.getReaderScreen().getImgPage0Magazine());
 	waitUntilVisible(page.getReaderScreen().getBtnBackToLibrary());
@@ -6885,11 +7092,13 @@ public void addOOrRemoveBoomark() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+	  softAssert49.assertAll();
 }
-//@Test(priority=55)
-public void drpArticleAndPageView() throws Exception
+// @Test(priority=55)
+public void C1697686_drpArticleAndPageView() throws Exception
 
 {
+	SoftAssert softAssert50 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -6924,12 +7133,14 @@ public void drpArticleAndPageView() throws Exception
 		System.out.println("DRP: ArticleView and PageView");
 		System.out.println("Test Passed - C1697686");
 		TestBase.addResultForTestCase("1697686", 1, "");
+		softAssert50.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("DRP: ArticleView and PageView");
 		System.out.println("Test Failed - C1697686");
 		TestBase.addResultForTestCase("1697686", 5, "");
+		softAssert50.assertTrue(false);
 	}
 	touchAtCenterOfElement(page.getReaderScreen().getImgPdfReaderView());
 	waitUntilVisible(page.getReaderScreen().getBtnContentsDrp());
@@ -7020,11 +7231,13 @@ public void drpArticleAndPageView() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+	softAssert50.assertAll();
 }
-//@Test(priority=56)
-public void drpTextSettingsForArticleView() throws Exception
+// @Test(priority=56)
+public void C1697687_drpTextSettingsForArticleView() throws Exception
 
 {
+	SoftAssert softAssert51 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -7070,12 +7283,14 @@ public void drpTextSettingsForArticleView() throws Exception
 		System.out.println("DRP: Text Settings for ArticleView");
 		System.out.println("Test passed - C1697687");
 		TestBase.addResultForTestCase("1697687", 1, "");
+		softAssert51.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("DRP: Text Settings for ArticleView");
 		System.out.println("Test Failed - C1697687");
 		TestBase.addResultForTestCase("1697687", 5, "");
+		softAssert51.assertTrue(false);
 	}
 	waitUntilVisible(page.getReaderScreen().getImgMargin2());
 	touchAtCenterOfElement(page.getReaderScreen().getImgMargin2());
@@ -7172,11 +7387,13 @@ public void drpTextSettingsForArticleView() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+	   softAssert51.assertAll();
 }
-//@Test(priority=57)
-public void drpToc() throws Exception
+// @Test(priority=57)
+public void C1697685_drpToc() throws Exception
 
 {
+	SoftAssert softAssert52 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -7206,12 +7423,14 @@ public void drpToc() throws Exception
 		System.out.println("DRP: TOC (Table of Contents)");
 		System.out.println("Test Passed - C1697685");
 		TestBase.addResultForTestCase("1697685", 1, "");
+		softAssert52.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("DRP: TOC (Table of Contents)");
 		System.out.println("Test Failed - C1697685");
 		TestBase.addResultForTestCase("1697685", 5, "");
+		softAssert52.assertTrue(false);
 	}
 	if(isElementDisplayed(page.getReaderScreen().getBtnContentsDrp())!=true){
 		touchAtCenterOfElement(page.getReaderScreen().getImgPdfReaderView());
@@ -7304,11 +7523,13 @@ public void drpToc() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+	 softAssert52.assertAll();
 }
-//@Test(priority=58)
-public void drpViewDetails() throws Exception
+// @Test(priority=58)
+public void C1736714_drpViewDetails() throws Exception
 
 {
+	SoftAssert softAssert53 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -7332,12 +7553,14 @@ public void drpViewDetails() throws Exception
 		System.out.println("DRP: View Details");
 		System.out.println("Test Passed - C1736714");
 		TestBase.addResultForTestCase("1736714", 1, "");
+		softAssert53.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("DRP: View Details");
 		System.out.println("Test Failed - C1736714");
 		TestBase.addResultForTestCase("1736714", 5, "");
+		softAssert53.assertTrue(false);
 	}
 	waitUntilVisible(page.getPdpScreen().getBtnBack());
 	touchAtCenterOfElement(page.getPdpScreen().getBtnBack());
@@ -7421,10 +7644,12 @@ public void drpViewDetails() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert53.assertAll();
 }
-//@Test(priority=59)
-public void drpLaunchSettings() throws Exception
+// @Test(priority=59)
+public void C1736715_drpLaunchSettings() throws Exception
 {
+	SoftAssert softAssert54 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -7446,12 +7671,14 @@ public void drpLaunchSettings() throws Exception
 		System.out.println("DRP: Launch Settings");
 		System.out.println("Test Passed - C1736715");
 		TestBase.addResultForTestCase("1736715", 1, "");
+		softAssert54.assertTrue(true);
 	}
 	else
 	{		
 		System.out.println("DRP: Launch Settings");
 		System.out.println("Test Failed - C1736715");
 		TestBase.addResultForTestCase("1736715", 5, "");
+		softAssert54.assertTrue(false);
 	}
 	waitUntilVisible(page.getReaderScreen().getBtnCloseReaderSettings());
 	touchAtCenterOfElement(page.getReaderScreen().getBtnCloseReaderSettings());
@@ -7535,11 +7762,13 @@ public void drpLaunchSettings() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+	 softAssert54.assertAll();
 }
-//@Test(priority=60)
-public void openDrpNewspaper() throws Exception
+// @Test(priority=60)
+public void C1736716_openDrpNewspaper() throws Exception
 
 {
+	SoftAssert softAssert55 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -7566,12 +7795,14 @@ public void openDrpNewspaper() throws Exception
 		System.out.println("DRP Newspaper: Open DRP newspaper");
 		System.out.println("Test Passed - C1736716");
 		TestBase.addResultForTestCase("1736716", 1, "");
+		softAssert55.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("DRP Newspaper: Open DRP newspaper");
 		System.out.println("Test Failed - C1736716");
 		TestBase.addResultForTestCase("1736716", 5, "");
+		softAssert55.assertTrue(false);
 	}
 	if(isElementDisplayed(page.getReaderScreen().getBtnBackToLibrary())!=true)
 	{
@@ -7660,13 +7891,14 @@ public void openDrpNewspaper() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
-	
+    softAssert55.assertAll();
 }
 	
-//@Test(priority=61)
-public void openDrpComic() throws Exception
+// @Test(priority=61)
+public void C1697696_openDrpComic() throws Exception
 
 {
+	SoftAssert softAssert56 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -7704,12 +7936,14 @@ public void openDrpComic() throws Exception
 		System.out.println("DRP Comic: Open DRP Comic and ZoomView works");
 		System.out.println("Test Passed - C1697696");
 		TestBase.addResultForTestCase("1697696", 1, "");
+		softAssert56.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("DRP Comic: Open DRP Comic and ZoomView works");
 		System.out.println("Test Failed - C1697696");
 		TestBase.addResultForTestCase("1697696", 5, "");
+		softAssert56.assertTrue(false);
 	}
 	touchAtCenterOfElement(page.getReaderScreen().getImgPdfReaderView());
 	waitUntilVisible(page.getReaderScreen().getBtnBackToLibrary());
@@ -7792,11 +8026,13 @@ public void openDrpComic() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+	 softAssert56.assertAll();
 }
-//@Test(priority=62)
-public void epub3OpenAndRead() throws Exception
+// @Test(priority=62)
+public void C1697709_epub3OpenAndRead() throws Exception
 
 {
+	SoftAssert softAssert57 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -7825,12 +8061,14 @@ public void epub3OpenAndRead() throws Exception
 		System.out.println("EPUB3: Open and read");
 		System.out.println("Test Passed - C1697709");
 		TestBase.addResultForTestCase("1697709", 1, "");
+		softAssert57.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("EPUB3: Open and read");
 		System.out.println("Test Failed - C1697709");
 		TestBase.addResultForTestCase("1697709", 5, "");
+		softAssert57.assertTrue(false);
 	}
 	Thread.sleep(5000);
 	if(isElementDisplayed(page.getReaderScreen().getBtnBackToLibrary())!=true)
@@ -7917,8 +8155,9 @@ public void epub3OpenAndRead() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert57.assertAll();
 }
-//@Test(priority=63)
+// @Test(priority=63)
 public void drpSignOut() throws Exception
 
 {
@@ -7976,7 +8215,7 @@ public void drpSignOut() throws Exception
 		driver.activateApp(bundleId);
 	}
 }
-//@Test(priority=64)
+// @Test(priority=64)
 public void bookStoreSignIn() throws Exception
 
 {
@@ -8087,10 +8326,11 @@ public void bookStoreSignIn() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-//@Test(priority=65)
-public void downloadFreeSampleBook() throws Exception
+// @Test(priority=65)
+public void C1697702_downloadFreeSampleBook() throws Exception
 
 {
+	SoftAssert softAssert58 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnBottomNavEbooks());
@@ -8134,12 +8374,14 @@ public void downloadFreeSampleBook() throws Exception
 		System.out.println("Bookstore: Download free sample book");
 		System.out.println("Test Passed - C1697702");
 		TestBase.addResultForTestCase("1697702", 1, "");
+		softAssert58.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("Bookstore: Download free sample book");
 		System.out.println("Test Failed - C1697702");
 		TestBase.addResultForTestCase("1697702", 5, "");
+		softAssert58.assertTrue(false);
 	}
 	longPress(page.getLibraryScreen().getImgCoverIntensity());
 	waitUntilVisible(page.getLibraryScreen().getBtnArchive());
@@ -8234,11 +8476,13 @@ public void downloadFreeSampleBook() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+    softAssert58.assertAll();
 }
-//@Test(priority=66)
-public void addBookToWishlist() throws Exception
+// @Test(priority=66)
+public void C1736753_addBookToWishlist() throws Exception
 
 {
+	SoftAssert softAssert59 = new SoftAssert();
 	try
 	{
 		
@@ -8276,12 +8520,14 @@ public void addBookToWishlist() throws Exception
 		System.out.println("BookStore: Add book to wishlist");
 		System.out.println("Test Passed - C1736753");
 		TestBase.addResultForTestCase("1736753", 1, "");
+		softAssert59.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("BookStore: Add book to wishlist");
 		System.out.println("Test Failed - C1736753");
 		TestBase.addResultForTestCase("1736753", 5, "");
+		softAssert59.assertTrue(false);
 	}
 	longPress(page.getBookstoreScreen().getImgCoverIntensity());
 	waitUntilVisible(page.getBookstoreScreen().getBtnRemoveFromWishlist());
@@ -8371,11 +8617,13 @@ public void addBookToWishlist() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+	 softAssert59.assertAll();
 }
-//@Test(priority=67)
-public void currentReadFromNavigationBar() throws Exception
+// @Test(priority=67)
+public void C1697657_currentReadFromNavigationBar() throws Exception
 
 {
+	SoftAssert softAssert60 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -8441,12 +8689,14 @@ public void currentReadFromNavigationBar() throws Exception
 		System.out.println("Current Read from Bottom Navigation Bar");
 		System.out.println("Test Passed - C1697657");
 		TestBase.addResultForTestCase("1697657", 1, "");
+		softAssert60.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("Current Read from Bottom Navigation Bar");
 		System.out.println("Test Failed - C1697657");
 		TestBase.addResultForTestCase("1697657", 5, "");
+		softAssert60.assertTrue(false);
 	}
 	Thread.sleep(5000);
 	if(isElementDisplayed(page.getReaderScreen().getBtnBackToLibrary())!=true)
@@ -8542,8 +8792,9 @@ public void currentReadFromNavigationBar() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavLibrary());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
+	  softAssert60.assertAll();
 }
-//@Test(priority=68)
+// @Test(priority=68)
 public void bookstoreSignOut() throws Exception
 {
 	try
@@ -8601,7 +8852,7 @@ public void bookstoreSignOut() throws Exception
 		driver.activateApp(bundleId);
 	}
 }
-//@Test(priority=69)
+// @Test(priority=69)
 public void profileSignIn() throws Exception
 
 {
@@ -8718,10 +8969,12 @@ public void profileSignIn() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavLibrary());
 	}
 }
-//@Test(priority=70)
-public void enableOrDisablePasscode() throws Exception
+// @Test(priority=70)
+public void C1713394_enableOrDisablePasscode() throws Exception
 
 {
+	SoftAssert softAssert61 = new SoftAssert();
+
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnBottomNavAccounts());
@@ -8768,12 +9021,14 @@ public void enableOrDisablePasscode() throws Exception
 		System.out.println("Profile: Enable/Disable passcode in Profile");
 		System.out.println("Test Passed - C1713394");
 		TestBase.addResultForTestCase("1713394", 1, "");
+		softAssert61.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("Profile: Enable/Disable passcode in Profile");
 		System.out.println("Test Failed - C1713394");
 		TestBase.addResultForTestCase("1713394", 5, "");
+		softAssert61.assertTrue(false);
 	}
 	waitUntilVisible(page.getAccountScreen().getBtnChildPasscode());
 	touchAtCenterOfElement(page.getAccountScreen().getBtnChildPasscode());
@@ -8873,11 +9128,13 @@ public void enableOrDisablePasscode() throws Exception
 			
 		}
 	}
+    softAssert61.assertAll();
 }
-//@Test(priority=71)
-public void createNewProfile() throws Exception
+// @Test(priority=71)
+public void C1729643_createNewProfile() throws Exception
 
 {
+	SoftAssert softAssert62 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getAccountScreen().getBtnAddProfile());
@@ -8895,6 +9152,7 @@ public void createNewProfile() throws Exception
 		System.out.println("Profile: Create new Profile");
 		System.out.println("Test Passed - C1729643");
 		TestBase.addResultForTestCase("1729643", 1, "");
+		softAssert62.assertTrue(true);
 
 	}
 	else
@@ -8902,6 +9160,7 @@ public void createNewProfile() throws Exception
 		System.out.println("Profile: Create new Profile");
 		System.out.println("Test Failed - C1729643");
 		TestBase.addResultForTestCase("1729643", 5, "");
+		softAssert62.assertTrue(false);
 	}
 	}
 	catch (Exception e) {
@@ -8988,11 +9247,13 @@ public void createNewProfile() throws Exception
 			
 		}
 	}
+	   softAssert62.assertAll();
 }
-//@Test(priority=72)
-public void manageContentForProfile() throws Exception
+// @Test(priority=72)
+public void C1697705_manageContentForProfile() throws Exception
 
 {
+	SoftAssert softAssert63 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getAccountScreen().getBtnEditTestProfile());
@@ -9003,18 +9264,20 @@ public void manageContentForProfile() throws Exception
 	touchAtCenterOfElement(page.getAccountScreen().getBtnDone());
 	String cont=page.getAccountScreen().getTxtNoOfContents().getAttribute("value");
 	System.out.println(cont);
-	boolean contents=cont.equalsIgnoreCase("980 visible items");
+	boolean contents=cont.equalsIgnoreCase("1048 visible items");
 	if(contents)
 	{
 	    System.out.println("Profile: Manage content for Profile");
 	    System.out.println("Test passed - C1697705");
 		TestBase.addResultForTestCase("1697705", 1, "");
+		softAssert63.assertTrue(true);
 	}
 	else
 	{
 	    System.out.println("Profile: Manage content for Profile");
 		System.out.println("Test Failed - C1697705");
 		TestBase.addResultForTestCase("1697705", 5, "");
+		softAssert63.assertTrue(false);
 	}
 	}
 	catch (Exception e) {
@@ -9101,11 +9364,13 @@ public void manageContentForProfile() throws Exception
 			
 		}
 	}
+    softAssert63.assertAll();
 }
-//@Test(priority=73)
-public void deleteProfile() throws Exception
+// @Test(priority=73)
+public void C1729644_deleteProfile() throws Exception
 
 {
+	SoftAssert softAssert64 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getAccountScreen().getBtnEditTestProfile());
@@ -9123,12 +9388,14 @@ public void deleteProfile() throws Exception
 		System.out.println("Profile: Delete Profile");
 		System.out.println("Test Passed - C1729644");
 		TestBase.addResultForTestCase("1729644", 1, "");
+		softAssert64.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("Profile: Delete Profile");
 		System.out.println("Test Failed - C1729644");
 		TestBase.addResultForTestCase("1729644", 5, "");
+		softAssert64.assertTrue(false);
 	}
 	waitUntilVisible(page.getAccountScreen().getBtnBack());
 	touchAtCenterOfElement(page.getAccountScreen().getBtnBack());
@@ -9210,11 +9477,13 @@ public void deleteProfile() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavAccounts());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavAccounts());
 	}
+	   softAssert64.assertAll();
 }
-//@Test(priority=74)
-public void launchSettingsFromProfilePage() throws Exception
+// @Test(priority=74)
+public void C1736719_launchSettingsFromProfilePage() throws Exception
 
 {
+	SoftAssert softAssert65 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getAccountScreen().getBtnFavoriteCategories());
@@ -9228,12 +9497,14 @@ public void launchSettingsFromProfilePage() throws Exception
 		System.out.println("Settings: Launch Settings from Profile page");
 		System.out.println("Test Passed - C1736719");
 		TestBase.addResultForTestCase("1736719", 1, "");
+		softAssert65.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("Settings: Launch Settings from Profile page");
 		System.out.println("Test Failed - C1736719");
 		TestBase.addResultForTestCase("1736719", 5, "");
+		softAssert65.assertTrue(false);
 	}
 	waitUntilVisible(page.getAccountScreen().getBtnBack());
 	touchAtCenterOfElement(page.getAccountScreen().getBtnBack());
@@ -9315,9 +9586,10 @@ public void launchSettingsFromProfilePage() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavAccounts());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavAccounts());
 	}
+	 softAssert65.assertAll();
 }
-//@Test(priority=75)
-public void profileSignOut() throws Exception
+// @Test(priority=75)
+public void C1697706_profileSignOut() throws Exception
 
 {
 	try
@@ -9381,7 +9653,7 @@ public void profileSignOut() throws Exception
 		driver.activateApp(bundleId);
 	}
 }
-//@Test(priority=76)
+// @Test(priority=76)
 public void audioBooksSignIn() throws Exception
 
 {
@@ -9486,10 +9758,11 @@ public void audioBooksSignIn() throws Exception
 		waitUntilInvisible(page.getLibraryScreen().getImgcoverSyncingLibBy());
 	}
 }
-//@Test(priority=77)
-public void archiveAudioBook() throws Exception
+// @Test(priority=77)
+public void C1738321_archiveAudioBook() throws Exception
 
 {
+	SoftAssert softAssert66 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getTxtFilterMediaTypes());
@@ -9521,12 +9794,14 @@ public void archiveAudioBook() throws Exception
 		System.out.println("Archive an audiobook from Library");
 		System.out.println("Test Passed - C1738321");
 		TestBase.addResultForTestCase("1738321", 1, "");
+		softAssert66.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("Archive an audiobook from Library");
 		System.out.println("Test Failed - C1738321");
 		TestBase.addResultForTestCase("1738321", 5, "");
+		softAssert66.assertTrue(false);
 	}
 	waitUntilVisible(page.getLibraryScreen().getImgCoverComeJoinUsABArchive());
 	longPress(page.getLibraryScreen().getImgCoverComeJoinUsABArchive());
@@ -9605,11 +9880,13 @@ public void archiveAudioBook() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getTxtTitleLibrary());
 		waitUntilInvisible(page.getLibraryScreen().getImgcoverSyncingLibBy());
 	}
+    softAssert66.assertAll();
 }
-//@Test(priority=78)
-public void createShelfWithBooksAndAb() throws Exception
+// @Test(priority=78)
+public void C1738322_createShelfWithBooksAndAb() throws Exception
 
 {
+	SoftAssert softAssert67 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getTxtTabShelves());
@@ -9644,12 +9921,14 @@ public void createShelfWithBooksAndAb() throws Exception
 		System.out.println("Create new shelf with Books and audio books");
 		System.out.println("Test Passed - C1738322");
 		TestBase.addResultForTestCase("1738322", 1, "");
+		softAssert67.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("Create new shelf with Books and audio books");
 		System.out.println("Test Failed - C1738322");
 		TestBase.addResultForTestCase("1738322", 5, "");
+		softAssert67.assertTrue(false);
 	}
 	}
 	catch (Exception e) {
@@ -9722,11 +10001,13 @@ public void createShelfWithBooksAndAb() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getTxtTabShelves());
 		touchAtCenterOfElement(page.getLibraryScreen().getTxtTabShelves());
 	}
+	 softAssert67.assertAll();
 }
-//@Test(priority=79)
-public void removeAbFromWishlist() throws Exception
+// @Test(priority=79)
+public void C1738325_removeAbFromWishlist() throws Exception
 
 {
+	SoftAssert softAssert68 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getTxtShelfNook());
@@ -9787,6 +10068,7 @@ public void removeAbFromWishlist() throws Exception
 		System.out.println("verify it can remove audiobook from Wishlist list");
 		System.out.println("Test Passed - C1738325");
 		TestBase.addResultForTestCase("1738325", 1, "");
+		softAssert68.assertTrue(true);
 
 	}
 	else
@@ -9794,6 +10076,7 @@ public void removeAbFromWishlist() throws Exception
 		System.out.println("verify it can remove audiobook from Wishlist list");
 		System.out.println("Test Failed - C1738325");
 		TestBase.addResultForTestCase("1738325", 5, "");
+		softAssert68.assertTrue(false);
 	}
 	waitUntilVisible(page.getPdpScreen().getBtnBack());
 	touchAtCenterOfElement(page.getPdpScreen().getBtnBack());
@@ -9868,11 +10151,13 @@ public void removeAbFromWishlist() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getTxtTitleLibrary());
 		waitUntilInvisible(page.getLibraryScreen().getImgcoverSyncingLibBy());
 	}
+    softAssert68.assertAll();
 }
-//@Test(priority=80)
-public void audiobookTutorial() throws Exception
+// @Test(priority=80)
+public void C1738335_audiobookTutorial() throws Exception
 
 {
+	SoftAssert softAssert69 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -9892,12 +10177,14 @@ public void audiobookTutorial() throws Exception
 		System.out.println("Verify the audiobook tutorial  when first time play");
 		System.out.println("Test Passed - C1738335");
 		TestBase.addResultForTestCase("1738335", 1, "");
+		softAssert69.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("Verify the audiobook tutorial  when first time play");
 		System.out.println("Test Failed - C1738335");	
 		TestBase.addResultForTestCase("1738335", 5, "");
+		softAssert69.assertTrue(false);
 	}
 	waitUntilVisible(page.getAudiobooksScreen().getBtnSkip());
 	touchAtCenterOfElement(page.getAudiobooksScreen().getBtnSkip());
@@ -9976,11 +10263,13 @@ public void audiobookTutorial() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getTxtTitleLibrary());
 		waitUntilInvisible(page.getLibraryScreen().getImgcoverSyncingLibBy());
 	}
+	softAssert69.assertAll();
 }
-//@Test(priority=81)
-public void playPauseFullPlayer() throws Exception
+// @Test(priority=81)
+public void C1738329_playPauseFullPlayer() throws Exception
 
 {
+	SoftAssert softAssert70 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -10000,12 +10289,14 @@ public void playPauseFullPlayer() throws Exception
 		System.out.println("Verify the Play/ Pause in full player");
 		System.out.println("Test Passed - C1738329");
 		TestBase.addResultForTestCase("1738329", 1, "");
+		softAssert70.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("Verify the Play/ Pause in full player");
 		System.out.println("Test Failed - C1738329");
 		TestBase.addResultForTestCase("1738329", 5, "");
+		softAssert70.assertTrue(false);
 	}
 	waitUntilVisible(page.getAudiobooksScreen().getBtnMoreOptions());
 	touchAtCenterOfElement(page.getAudiobooksScreen().getBtnMoreOptions());
@@ -10082,11 +10373,13 @@ public void playPauseFullPlayer() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getTxtTitleLibrary());
 		waitUntilInvisible(page.getLibraryScreen().getImgcoverSyncingLibBy());
 	}
+    softAssert70.assertAll();
 }
-//@Test(priority=82)
-public void overFlowMenuFullPlayer() throws Exception
+// @Test(priority=82)
+public void C1738332_overFlowMenuFullPlayer() throws Exception
 
 {
+	SoftAssert softAssert71 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -10112,12 +10405,14 @@ public void overFlowMenuFullPlayer() throws Exception
 		System.out.println("Verify the overflow menu in full player");
 		System.out.println("Test Passed - C1738332");
 		TestBase.addResultForTestCase("1738332", 1, "");
+		softAssert71.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("Verify the overflow menu in full player");
 		System.out.println("Test Failed - C1738332");
 		TestBase.addResultForTestCase("1738332", 5, "");
+		softAssert71.assertTrue(false);
 	}
 	waitUntilVisible(page.getPdpScreen().getBtnBack());
 	touchAtCenterOfElement(page.getPdpScreen().getBtnBack());
@@ -10196,11 +10491,13 @@ public void overFlowMenuFullPlayer() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getTxtTitleLibrary());
 		waitUntilInvisible(page.getLibraryScreen().getImgcoverSyncingLibBy());
 	}
+    softAssert71.assertAll();
 }
-//@Test(priority=83)
-public void playPauseMiniPlayer() throws Exception
+// @Test(priority=83)
+public void C1738336_playPauseMiniPlayer() throws Exception
 
 {
+	SoftAssert softAssert72 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -10224,12 +10521,14 @@ public void playPauseMiniPlayer() throws Exception
 		System.out.println("Verify the Play/Pause from mini player");
 		System.out.println("Test Passed - C1738336");
 		TestBase.addResultForTestCase("1738336", 1, "");
+		softAssert72.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("Verify the Play/Pause from mini player");
 		System.out.println("Test Failed - C1738336");
 		TestBase.addResultForTestCase("1738336", 5, "");
+		softAssert72.assertTrue(false);
 	}
 	waitUntilVisible(page.getLibraryScreen().getTxtCoverComeJoinUsSearchLib());
 	touchAtCenterOfElement(page.getLibraryScreen().getTxtCoverComeJoinUsSearchLib());
@@ -10308,11 +10607,13 @@ public void playPauseMiniPlayer() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getTxtTitleLibrary());
 		waitUntilInvisible(page.getLibraryScreen().getImgcoverSyncingLibBy());
 	}
+	softAssert72.assertAll();
 }
-//@Test(priority=84)
-public void singleDownloadAb() throws Exception
+// @Test(priority=84)
+public void C1738320_singleDownloadAb() throws Exception
 
 {
+	SoftAssert softAssert73 = new SoftAssert();
 	try
 	{
 	waitUntilVisible(page.getLibraryScreen().getBtnSearch());
@@ -10335,12 +10636,14 @@ public void singleDownloadAb() throws Exception
 		System.out.println("Verify Single Download for audiobooks");
 		System.out.println("Test Passed - C1738320");
 		TestBase.addResultForTestCase("1738320", 1, "");
+		softAssert73.assertTrue(true);
 	}
 	else
 	{
 		System.out.println("Verify Single Download for audiobooks");
 		System.out.println("Test Failed - C1738320");
 		TestBase.addResultForTestCase("1738320", 5, "");
+		softAssert73.assertTrue(false);
 	}
 	waitUntilVisible(page.getLibraryScreen().getBtnCancelDownloadAB());
 	touchAtCenterOfElement(page.getLibraryScreen().getBtnCancelDownloadAB());
@@ -10415,8 +10718,9 @@ public void singleDownloadAb() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getTxtTitleLibrary());
 		waitUntilInvisible(page.getLibraryScreen().getImgcoverSyncingLibBy());
 	}
+	softAssert73.assertAll();
 }
-//@Test(priority=85)
+// @Test(priority=85)
 public void abSignOut() throws Exception
 
 {
@@ -10474,7 +10778,7 @@ public void abSignOut() throws Exception
 		driver.activateApp(bundleId);
 	}
 }
-//@Test(priority=86)
+// @Test(priority=86)
 public void newlyAddedCasesSignIn() throws Exception
 
 {
@@ -10586,10 +10890,11 @@ public void newlyAddedCasesSignIn() throws Exception
 
 }
 
-//@Test(priority=87)
-public void moveBulkToCloud() throws Exception
+// @Test(priority=87)
+public void C1735166_moveBulkToCloud() throws Exception
 
 {
+	SoftAssert softAssert74 = new SoftAssert();
 	try
 	{
 		waitUntilVisible(page.getLibraryScreen().getTxtFilterMediaTypes());
@@ -10614,12 +10919,14 @@ public void moveBulkToCloud() throws Exception
 			System.out.println("Library: Manage Storage - Move bulk of downloaded items to Cloud");
 			System.out.println("Test Passed - C1735166");
 			TestBase.addResultForTestCase("1735166", 1, "");
+			softAssert74.assertTrue(true);
 		}
 		else
 		{
 			System.out.println("Library: Manage Storage - Move bulk of downloaded items to Cloud");
 			System.out.println("Test Failed - C1735166");
 			TestBase.addResultForTestCase("1735166", 5, "");
+			softAssert74.assertTrue(false);
 		}	
 		waitUntilVisible(page.getLibraryScreen().getBtnMoreOptions());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnMoreOptions());
@@ -10680,11 +10987,11 @@ public void moveBulkToCloud() throws Exception
 		driver.activateApp(bundleId);
 	}
 
-
+    softAssert74.assertAll();
 
 	}
 
-//@Test(priority=88)
+// @Test(priority=88)
 public void newlyAddedCasesReSignIn() throws Exception
 
 {
@@ -10790,14 +11097,17 @@ public void newlyAddedCasesReSignIn() throws Exception
 	
 }
 
-//@Test(priority=89)
-public void accountOptionsCheck() throws Exception
+// @Test(priority=89)
+public void C1746011_accountOptionsCheck() throws Exception
 
 {
+	SoftAssert softAssert75 = new SoftAssert();
 	try
 	{
 		waitUntilVisible(page.getLibraryScreen().getBtnBottomNavAccounts());
 		touchAtCenterOfElement(page.getLibraryScreen().getBtnBottomNavAccounts());
+		waitUntilVisible(page.getAccountScreen().getTxtFavoriteCategories());
+		swipeScreen(Direction.UP);
 		boolean daysreading = isElementDisplayed(page.getAccountScreen().getTxtDaysReading());
 		boolean dayslistening = isElementDisplayed(page.getAccountScreen().getTxtDaysListening());
 		boolean wishlist = isElementDisplayed(page.getAccountScreen().getTxtWishlist());
@@ -10806,22 +11116,19 @@ public void accountOptionsCheck() throws Exception
 		boolean accsettings=isElementDisplayed(page.getAccountScreen().getTxtAccountSettings());
 		boolean payments=isElementDisplayed(page.getAccountScreen().getTxtPayments());
 		boolean appsettings=isElementDisplayed(page.getAccountScreen().getTxtAppSettings());
-		if(daysreading&&dayslistening&&wishlist&&favcategories&&manageprofiles&&accsettings&&payments)
-		{
-			swipeScreen(Direction.UP);
-			if(appsettings)
-			{
-				System.out.println("Account: Options check");
-				System.out.println("Test Passed - C1746011");
-				TestBase.addResultForTestCase("1746011", 1, "");
-			}
-			else
-			{
-				System.out.println("Account: Options check");
-				System.out.println("Test Failed - C1746011");
-				TestBase.addResultForTestCase("1746011", 5, "");
-			}		
-		}	
+		if (daysreading && dayslistening && wishlist && favcategories && manageprofiles && accsettings && payments
+				&& appsettings) {
+
+			System.out.println("Account: Options check");
+			System.out.println("Test Passed - C1746011");
+			TestBase.addResultForTestCase("1746011", 1, "");
+			softAssert75.assertTrue(true);
+		} else {
+			System.out.println("Account: Options check");
+			System.out.println("Test Failed - C1746011");
+			TestBase.addResultForTestCase("1746011", 5, "");
+			softAssert75.assertTrue(false);
+		}
 		
 	}
 	catch (Exception e) {
@@ -10892,11 +11199,11 @@ public void accountOptionsCheck() throws Exception
 		waitUntilVisible(page.getLibraryScreen().getTxtTitleLibrary());
 		waitUntilInvisible(page.getLibraryScreen().getImgcoverSyncingLibBy());
 	}
-	
+	 softAssert75.assertAll();
 	
 }
 
-//@Test(priority=90)
+// @Test(priority=90)
 public void newlyAddedCasesSignOut() throws Exception
 
 {
@@ -10979,7 +11286,7 @@ public void newlyAddedCasesSignOut() throws Exception
 
 
 //dont uncomment or include this for now
- ////@Test(priority=8)
+ //// @Test(priority=8)
 public void SideLoad() throws Exception
 {
 	 

@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
 
@@ -35,15 +34,24 @@ pipeline {
         success {
             echo 'The pipeline has completed successfully.'
 
-            // Define the relative path using the Jenkins workspace environment variable
             script {
                 def reportFilePattern = '**/target/surefire-reports/emailable-report.html'
+                def deviceInfo = sh(script: 'hostname && uname -a', returnStdout: true).trim()  // Get hostname and OS details
+
                 if (fileExists("${env.WORKSPACE}/target/surefire-reports/emailable-report.html")) {
                     emailext(
-                        subject: 'Build Success',
-                        body: 'The build has completed successfully! Please find the attached emailable report.',
+                        subject: "Build Success - #${currentBuild.number} - ${deviceInfo}",
+                        body: """
+                            The build has completed successfully!
+                            Please find the attached emailable report.
+                            
+                            Build Number: #${currentBuild.number}
+                            Job Name: ${env.JOB_NAME}
+                            Build URL: ${env.BUILD_URL}
+                            Device Info: ${deviceInfo}
+                        """,
                         attachmentsPattern: reportFilePattern, // GLOB pattern
-                        to: 'kvengattan@bn.com'
+                        to: 'kvengattan@bn.com, ssidharthan@bn.com'
                     )
                 } else {
                     echo "Emailable report not found at ${env.WORKSPACE}/target/surefire-reports/emailable-report.html"
@@ -54,15 +62,24 @@ pipeline {
         failure {
             echo 'The pipeline has failed.'
 
-            // Define the relative path using the Jenkins workspace environment variable
             script {
                 def reportFilePattern = '**/target/surefire-reports/emailable-report.html'
+                def deviceInfo = sh(script: 'hostname && uname -a', returnStdout: true).trim()  // Get hostname and OS details
+
                 if (fileExists("${env.WORKSPACE}/target/surefire-reports/emailable-report.html")) {
                     emailext(
-                        subject: 'Build Failed',
-                        body: 'The build has failed. Please check the attached emailable report.',
+                        subject: "Build Failed - #${currentBuild.number} - ${deviceInfo}",
+                        body: """
+                            The build has failed.
+                            Please check the attached emailable report for details.
+                            
+                            Build Number: #${currentBuild.number}
+                            Job Name: ${env.JOB_NAME}
+                            Build URL: ${env.BUILD_URL}
+                            Device Info: ${deviceInfo}
+                        """,
                         attachmentsPattern: reportFilePattern, // GLOB pattern
-                        to: 'kvengattan@bn.com'
+                        to: 'kvengattan@bn.com, ssidharthan@bn.com'
                     )
                 } else {
                     echo "Emailable report not found at ${env.WORKSPACE}/target/surefire-reports/emailable-report.html"
@@ -71,6 +88,7 @@ pipeline {
         }
     }
 }
+
 
 
 

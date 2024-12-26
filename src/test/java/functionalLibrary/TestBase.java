@@ -67,7 +67,7 @@ public class TestBase {
 //		  URL appiumServerURL = new URL("http://127.0.0.1:4723/wd/hub");
 //		  IOSDriver driver = new IOSDriver(appiumServerURL,desiredCaps);
 		  
-		  driver=new IOSDriver<MobileElement>(new URL("http://0.0.0.0:4723"),desiredCaps);
+		  driver=new IOSDriver<MobileElement>(new URL("http://127.0.0.1:4723"),desiredCaps);
 	}
 	
 	public void baseDriverwait(int waitTiming) {

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="selenium automation suite">
- 
-  <test name="appium">
+<suite name="Appium automation suite">
+    <listeners>
+        <listener class-name="utilities.TestReportListener"/>
+    </listeners>
+  <test name="Appium Test Suite">
     <classes>
       <class name="tests.TestApp"/>		
     </classes>
