@@ -45,7 +45,7 @@ pipeline {
             echo "TestRail URL: ${env.TESTRAIL_URL}"
 
             script {
-                def reportFilePattern = '**/target/surefire-reports/emailable-report.html'
+                def reportFilePattern = '**/extent-reports/test-report.html'
                 if (fileExists("${env.WORKSPACE}/target/surefire-reports/emailable-report.html")) {
                     emailext(
                         subject: 'Build Success',
