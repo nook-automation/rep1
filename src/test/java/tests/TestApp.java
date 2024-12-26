@@ -1448,15 +1448,15 @@ public void C1729639_permenantlyDelete() throws Exception
 	waitUntilVisible(page.getBookstoreScreen().getTxtCoverAllThisTime());
 	touchAtCenterOfElement(page.getBookstoreScreen().getTxtCoverAllThisTime());
 	Thread.sleep(10000);
-	new TouchAction(driver).tap(PointOption.point(345, 660)).perform();
-	//Touch not working
-//    waitUntilVisible(page.getPdpScreen().getBtnFreeSample());
-//	touchAtCenterOfElement(page.getPdpScreen().getBtnFreeSample());
-	Thread.sleep(5000);
-	new TouchAction(driver).tap(PointOption.point(273, 409)).perform();
+//	new TouchAction(driver).tap(PointOption.point(345, 660)).perform();
+//	//Touch not working
+    waitUntilVisible(page.getPdpScreen().getBtnFree());
+	touchAtCenterOfElement(page.getPdpScreen().getBtnFree());
+//	Thread.sleep(5000);
+//	new TouchAction(driver).tap(PointOption.point(273, 409)).perform();
 	waitUntilInvisible(page.getPdpScreen().getBtnCancelBy());
 	Thread.sleep(15000);
-	waitUntilVisible(page.getPdpScreen().getBtnReadSample());
+    waitUntilVisible(page.getPdpScreen().getBtnRead());
 	touchAtCenterOfElement(page.getPdpScreen().getBtnBack());
 	waitUntilVisible(page.getLibraryScreen().getBtnCancelSearch());
 	touchAtCenterOfElement(page.getLibraryScreen().getBtnCancelSearch());
