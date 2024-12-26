@@ -46,7 +46,7 @@ pipeline {
 
             script {
                 def reportFilePattern = '**/extent-reports/test-report.html'
-                if (fileExists("${env.WORKSPACE}/target/surefire-reports/emailable-report.html")) {
+                if (fileExists("${env.WORKSPACE}/extent-reports/test-report.html")) {
                     emailext(
                         subject: 'Build Success',
                         body: "The build has completed successfully! Please find the attached emailable report.\n\nDevice Details:\nDevice Name: ${env.DEVICE_NAME}\nDevice OS: ${env.DEVICE_OS}\nDevice UDID: ${env.DEVICE_UDID}\nTestRail URL: ${env.TESTRAIL_URL}",
@@ -54,7 +54,7 @@ pipeline {
                         to: 'kvengattan@bn.com,ssidharthan@bn.com'
                     )
                 } else {
-                    echo "Emailable report not found at ${env.WORKSPACE}/target/surefire-reports/emailable-report.html"
+                    echo "Emailable report not found at ${env.WORKSPACE}/extent-reports/test-report.html"
                 }
             }
         }
@@ -69,16 +69,16 @@ pipeline {
             echo "TestRail URL: ${env.TESTRAIL_URL}"
 
             script {
-                def reportFilePattern = '**/target/surefire-reports/emailable-report.html'
-                if (fileExists("${env.WORKSPACE}/target/surefire-reports/emailable-report.html")) {
+                def reportFilePattern = '**/extent-reports/test-report.html'
+                if (fileExists("${env.WORKSPACE}/extent-reports/test-report.html")) {
                     emailext(
                         subject: 'Build Failed',
                         body: "The build has failed. Please check the attached emailable report.\n\nDevice Details:\nDevice Name: ${env.DEVICE_NAME}\nDevice OS: ${env.DEVICE_OS}\nDevice UDID: ${env.DEVICE_UDID}\nTestRail URL: ${env.TESTRAIL_URL}",
                         attachmentsPattern: reportFilePattern, // GLOB pattern
-                        to: 'kvengattan@bn.com'
+                        to: 'kvengattan@bn.com,ssidharthan@bn.com'
                     )
                 } else {
-                    echo "Emailable report not found at ${env.WORKSPACE}/target/surefire-reports/emailable-report.html"
+                    echo "Emailable report not found at ${env.WORKSPACE}/extent-reports/test-report.html"
                 }
             }
         }
