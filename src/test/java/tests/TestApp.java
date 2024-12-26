@@ -1452,6 +1452,8 @@ public void C1729639_permenantlyDelete() throws Exception
 //	//Touch not working
     waitUntilVisible(page.getPdpScreen().getBtnFree());
 	touchAtCenterOfElement(page.getPdpScreen().getBtnFree());
+    waitUntilVisible(page.getPdpScreen().getBtnConfirm());
+	touchAtCenterOfElement(page.getPdpScreen().getBtnConfirm());
 //	Thread.sleep(5000);
 //	new TouchAction(driver).tap(PointOption.point(273, 409)).perform();
 	waitUntilInvisible(page.getPdpScreen().getBtnCancelBy());
