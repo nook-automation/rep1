@@ -9271,6 +9271,8 @@ public void C1697705_manageContentForProfile() throws Exception
 	touchAtCenterOfElement(page.getAccountScreen().getBtnManageContent());
 	waitUntilVisible(page.getAccountScreen().getBtnDone());
 	touchAtCenterOfElement(page.getAccountScreen().getBtnDone());
+	waitUntilVisible(page.getAccountScreen().getTxtProfileTest());
+	Thread.sleep(5000);
 	String cont=page.getAccountScreen().getTxtNoOfContents().getAttribute("value");
 	System.out.println(cont);
 	boolean contents=cont.equalsIgnoreCase("1048 visible items");
