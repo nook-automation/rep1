@@ -3638,7 +3638,10 @@ public void C1736705_showShelvedItemsDisable() throws Exception
 		touchAtCenterOfElement(page.getLibraryScreen().getImgDismissLibrarySettings());
 	}
 	waitUntilVisible(page.getLibraryScreen().getTxtFilterMediaTypes());
-	if(isElementDisplayed(page.getLibraryScreen().getImgCoverTimeMagazineManageProgress())!=true)
+	touchAtCenterOfElement(page.getLibraryScreen().getTxtFilterMediaTypes());
+	waitUntilVisible(page.getLibraryScreen().getTxtFilterByBooks());
+	touchAtCenterOfElement(page.getLibraryScreen().getTxtFilterByBooks());
+	if(isElementDisplayed(page.getLibraryScreen().getImgCoverBoyfriendEffectSearchLib())!=true)
 	{
 		System.out.println("Library: Settings - Disable \"\"Show Shelved Items\"\"");
 		System.out.println("Test Passed - C1736705");
@@ -3652,6 +3655,10 @@ public void C1736705_showShelvedItemsDisable() throws Exception
 		TestBase.addResultForTestCase("1736705", 5, "");
 		softAssert27.assertTrue(false);
 	}
+	waitUntilVisible(page.getLibraryScreen().getTxtFilterMediaTypes());
+	touchAtCenterOfElement(page.getLibraryScreen().getTxtFilterMediaTypes());
+	waitUntilVisible(page.getLibraryScreen().getTxtFilterByAllTypes());
+	touchAtCenterOfElement(page.getLibraryScreen().getTxtFilterByAllTypes());
 	}
 	catch (Exception e) {
 		getScreenshot();
