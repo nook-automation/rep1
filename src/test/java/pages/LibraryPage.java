@@ -243,6 +243,9 @@ private By imgXDownload=MobileBy.xpath("//XCUIElementTypeApplication[@name=\"B&N
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name=\"New Year. found 2 items \"]")
 	private MobileElement txtShelfNewYear2Contents;
 	
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name=\"New Year. found 3 items \"]")
+	private MobileElement txtShelfNewYear3Contents;
+	
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name=\"Delete Shelf\"]")
 	private MobileElement btnDeleteShelf;
 	
@@ -956,6 +959,10 @@ private By imgXDownload=MobileBy.xpath("//XCUIElementTypeApplication[@name=\"B&N
 
 	public MobileElement getBtnMoveToCloud() {
 		return btnMoveToCloud;
+	}
+
+	public MobileElement getTxtShelfNewYear3Contents() {
+		return txtShelfNewYear3Contents;
 	}
 
 

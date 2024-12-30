@@ -1881,8 +1881,10 @@ public void C1729658_renameShelf() throws Exception
 	sendKeys("New Year");
 	waitUntilVisible(page.getLibraryScreen().getBtnSaveShelf());
 	touchAtCenterOfElement(page.getLibraryScreen().getBtnSaveShelf());
-	waitUntilVisible(page.getLibraryScreen().getTxtShelfNameNewYear());
-	if(isElementDisplayed(page.getLibraryScreen().getTxtShelfNameNewYear()))
+	waitUntilVisible(page.getLibraryScreen().getTxtShelfNewYear2Contents());
+	boolean found2=isElementDisplayed(page.getLibraryScreen().getTxtShelfNewYear2Contents());
+	boolean found3=isElementDisplayed(page.getLibraryScreen().getTxtShelfNewYear3Contents());
+	if(found2||found3)
 	{
 		System.out.println("Library: Shelves tab - Rename shelf");
 		System.out.println("Test Passed - C1729658");
