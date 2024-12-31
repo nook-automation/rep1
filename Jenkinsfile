@@ -51,7 +51,7 @@ pipeline {
                         subject: '[QA][Auto: Iphone 13"] Build Acceptance 6.7.2.6',
                         body: "The build has completed successfully! Please find the attached emailable report.\n\nDevice Details:\nDevice Name: ${env.DEVICE_NAME}\nDevice OS: ${env.DEVICE_OS}\nDevice UDID: ${env.DEVICE_UDID}\nTestRail URL: ${env.TESTRAIL_URL}",
                         attachmentsPattern: reportFilePattern, // GLOB pattern
-                        to: 'kvengattan@bn.com,ssidharthan@bn.com'
+                        to: 'kvengattan@bn.com,ssidharthan@bn.com,mrajan@bn.com,pramachandran@bn.com,vpalanisamy@bn.com,skamuthu@bn.com,psaravanaguru@bn.com'
                     )
                 } else {
                     echo "Emailable report not found at ${env.WORKSPACE}/extent-reports/test-report.html"
@@ -75,7 +75,7 @@ pipeline {
                         subject: '[QA][Auto: Iphone 13"] Build Acceptance 6.7.2.6',
                         body: "The build has failed. Please check the attached emailable report.\n\nDevice Details:\nDevice Name: ${env.DEVICE_NAME}\nDevice OS: ${env.DEVICE_OS}\nDevice UDID: ${env.DEVICE_UDID}\nTestRail URL: ${env.TESTRAIL_URL}",
                         attachmentsPattern: reportFilePattern, // GLOB pattern
-                        to: 'kvengattan@bn.com,ssidharthan@bn.com'
+                        to: 'kvengattan@bn.com,ssidharthan@bn.com,mrajan@bn.com,pramachandran@bn.com,vpalanisamy@bn.com,skamuthu@bn.com,psaravanaguru@bn.com'
                     )
                 } else {
                     echo "Emailable report not found at ${env.WORKSPACE}/extent-reports/test-report.html"
