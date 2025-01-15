@@ -23,9 +23,11 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.collect.ImmutableMap;
 
 import common.Property;
 import config.Config;
@@ -55,6 +57,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import org.testng.internal.TestResult;
@@ -104,18 +107,15 @@ public class TestApp extends TestBase implements ITestListener{
 	
 	
 	
-//	@AfterSuite
-//	public static void sendTestReportEmail()
+//	@BeforeSuite
+//	public void sendTestReportEmail()
 //	{
 //		System.out.println(TestListener.reportPath);
 //		TestListener.sendEmailWithAttachment(TestListener.reportPath);
-//
 //	}
-//	
+	
     
 	    @Test(priority = 0)
-	    @Description("This is a test case to verify the account creation functionality.")
-	    @Step("Creating a random account with current date and time as email and password: Test1234")
 	    public void C1736451_CreateAccount() throws Exception {
 	    	SoftAssert softAssert = new SoftAssert();
 	        try {

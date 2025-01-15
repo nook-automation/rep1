@@ -147,7 +147,7 @@ private By imgXDownload=MobileBy.xpath("//XCUIElementTypeApplication[@name=\"B&N
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='AUTHOR_VIEW_AUTHOR_LABEL']")
 	private MobileElement txtBookNamesSortedByAuthor;
 	
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name=\"Search\"]")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@label='search']")
 	private MobileElement btnSearchIosKeyboard;
 	
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@value='The Boyfriend Effect']")

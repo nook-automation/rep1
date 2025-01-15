@@ -456,7 +456,90 @@ public class TestBase {
         System.out.println("Current method: " + methodName);
     }
     
+    public enum PRESS_TYPES {
+        HOME, BACK, POWER, APP_SWITCH, ENTER, DELETE
+    }
+    
+    public void press(PRESS_TYPES type) throws Exception {
+        System.out.println(String.format("Press on %s key", type));
+
+        switch (type) {
+            case HOME:
+                pressHome();
+                break;
+
+            case BACK:
+                pressBack();
+                break;
+
+            case POWER:
+                pressPower();
+                break;
+
+            case APP_SWITCH:
+                pressAppSwitch();
+                break;
+
+            case ENTER:
+                pressEnter();
+                break;
+
+            case DELETE:
+                pressDelete();
+                break;
+
+            default:
+                throw new Exception(String.format("Don't support press %s key", type));
+        }
+    }
+    private void pressHome() throws Exception {
+        System.out.println("Simulating press of Home button...");
+        // Simulate press Home button (iOS)
+        driver.executeScript("mobile: pressButton", ImmutableMap.of("name", "home"));
+    }
+
+    private void pressBack() throws Exception {
+        System.out.println("Simulating press of Back button...");
+        // iOS doesn't have a physical back button (similar to Android), so you might need to perform navigation actions
+        driver.navigate().back();
+    }
+
+    private void pressPower() throws Exception {
+        throw new Exception("Power button simulation is not supported in Appium for iOS.");
+    }
+
+    private void pressAppSwitch() throws Exception {
+        // iOS doesn't have a specific App Switch key, switching between apps would require interaction with the app context
+        throw new Exception("App switch simulation is not directly supported in Appium for iOS.");
+    }
+
+    private void pressEnter() throws Exception {
+        System.out.println("Simulating press of Enter key...");
+        // Simulate pressing Enter (equivalent to Return on iOS)
+        driver.executeScript("mobile: performEditorAction", ImmutableMap.of("action", "search"));
+    }
+
+    private void pressDelete() throws Exception {
+        System.out.println("Simulating press of Delete key...");
+        // Simulate pressing Delete on a text field
+        driver.findElement(MobileBy.AccessibilityId("TextFieldID")).sendKeys("\uE003"); // Delete (Backspace)
+    }
+    
+    
+    
+    
+    
+    
+    
 }
+    
+    
+    
+    
+    
+    
+    
+
 	
 	
 	
