@@ -48,7 +48,7 @@ pipeline {
                 def reportFilePattern = '**/extent-reports/test-report.html'
                 if (fileExists("${env.WORKSPACE}/extent-reports/test-report.html")) {
                     emailext(
-                        subject: '[QA][Auto: Iphone 13"] Build Acceptance 6.7.2.6',
+                        subject: '[QA][Auto: Iphone 13"] Build Acceptance 6.7.4.1',
                         body: "The build has completed successfully! Please find the attached emailable report.\n\nDevice Details:\nDevice Name: ${env.DEVICE_NAME}\nDevice OS: ${env.DEVICE_OS}\nDevice UDID: ${env.DEVICE_UDID}\nTestRail URL: ${env.TESTRAIL_URL}",
                         attachmentsPattern: reportFilePattern, // GLOB pattern
                         to: 'kvengattan@bn.com,ssidharthan@bn.com,mrajan@bn.com,pramachandran@bn.com,vpalanisamy@bn.com,skamuthu@bn.com,psaravanaguru@bn.com'
